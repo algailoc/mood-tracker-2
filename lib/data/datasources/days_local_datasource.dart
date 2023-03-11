@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mood_tracker_2/core/constants.dart';
 import 'package:mood_tracker_2/data/models/day_model.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:hive/hive.dart';
@@ -13,7 +14,7 @@ abstract class DaysLocalDataSource {
 }
 
 class DaysLocalDataSourceImpl implements DaysLocalDataSource {
-  final box = Hive.box('days_box');
+  final box = Hive.box(daysBoxName);
 
   @override
   Future<void> addDay(DayEntity day) {

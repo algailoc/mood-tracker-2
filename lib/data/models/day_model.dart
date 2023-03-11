@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'dart:math';
 
-import 'package:mood_tracker_2/data/models/activity_model.dart';
-import 'package:mood_tracker_2/data/models/food_model.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 
@@ -11,8 +8,8 @@ class DayModel extends DayEntity {
     required String id,
     required DateTime date,
     required Mood mood,
-    List<FoodModel> foods = const [],
-    List<ActivityModel> activities = const [],
+    List<String> foods = const [],
+    List<String> activities = const [],
     List<String> goodStuff = const [],
     List<String> badStuff = const [],
   }) : super(
@@ -30,39 +27,20 @@ class DayModel extends DayEntity {
       'id': id,
       'date': date.millisecondsSinceEpoch,
       'mood': mood.name,
-      'foods': foods.map(
-        (e) => FoodModel.fromEntity(e).toJson(),
-      ),
-      'activities': activities.map(
-        (e) => ActivityModel.fromEntity(e).toJson(),
-      ),
+      'foods': foods,
+      'activities': activities,
       'goodStuff': goodStuff,
       'badStuff': badStuff,
     });
   }
 
   factory DayModel.fromJson(Map<String, dynamic> json) {
-    final foods = <FoodModel>[];
-    final activities = <ActivityModel>[];
-
-    if (json['foods'] != null) {
-      for (var food in json['foods']) {
-        foods.add(FoodModel.fromJson(food));
-      }
-    }
-
-    if (json['activities'] != null) {
-      for (var activity in json['activities']) {
-        activities.add(ActivityModel.fromJson(activity));
-      }
-    }
-
     return DayModel(
       id: json['id'],
       date: DateTime.fromMillisecondsSinceEpoch(json['date']),
       mood: Mood.values[json['mood']],
-      foods: foods,
-      activities: activities,
+      foods: json['foods'],
+      activities: json['activities'],
       goodStuff: json['goodStuff'],
       badStuff: json['badStuff'],
     );
@@ -73,9 +51,8 @@ class DayModel extends DayEntity {
       id: entity.id,
       date: entity.date,
       mood: entity.mood,
-      foods: entity.foods.map((e) => FoodModel.fromEntity(e)).toList(),
-      activities:
-          entity.activities.map((e) => ActivityModel.fromEntity(e)).toList(),
+      foods: entity.foods,
+      activities: entity.activities,
       goodStuff: entity.goodStuff,
       badStuff: entity.badStuff,
     );

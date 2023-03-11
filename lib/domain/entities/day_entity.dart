@@ -1,14 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
-import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 
 class DayEntity extends Equatable {
   final String id;
   final DateTime date;
   final Mood mood;
-  final List<ActivityEntity> activities;
-  final List<FoodEntity> foods;
+  final List<String> activities;
+  final List<String> foods;
   final List<String> goodStuff;
   final List<String> badStuff;
 
@@ -26,8 +24,8 @@ class DayEntity extends Equatable {
     String? id,
     DateTime? date,
     Mood? mood,
-    List<ActivityEntity>? activities,
-    List<FoodEntity>? foods,
+    List<String>? activities,
+    List<String>? foods,
     List<String>? goodStuff,
     List<String>? badStuff,
   }) {
