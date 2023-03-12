@@ -11,6 +11,9 @@ abstract class StatisticsLocalDataSource {
 
   Future<void> updateActivities(List<ActivityEntity> activities);
   Future<void> updateFood(List<FoodEntity> foods);
+
+  Future<void> deleteActivity(String id);
+  Future<void> deleteFood(String id);
 }
 
 class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
@@ -53,5 +56,15 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
       food.id,
       FoodModel.fromEntity(food.copyWith(original: false)).toJson(),
     );
+  }
+
+  @override
+  Future<void> deleteActivity(String id) {
+    return activitiesBox.delete(id);
+  }
+
+  @override
+  Future<void> deleteFood(String id) {
+    return foodsBox.delete(id);
   }
 }

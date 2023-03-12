@@ -18,6 +18,7 @@ dependencies:
   shared_preferences: ^2.0.18
   hive: ^2.2.3
   equatable: ^2.0.5
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:
