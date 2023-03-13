@@ -6,7 +6,7 @@ import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 
 abstract class StatisticsLocalDataSource {
-  Future<void> addActivities(ActivityEntity activity);
+  Future<void> addActivity(ActivityEntity activity);
   Future<void> addFood(FoodEntity food);
 
   Future<void> updateActivities(List<ActivityEntity> activities);
@@ -43,7 +43,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   }
 
   @override
-  Future<void> addActivities(ActivityEntity activity) {
+  Future<void> addActivity(ActivityEntity activity) {
     return activitiesBox.put(
       activity.id,
       ActivityModel.fromEntity(activity.copyWith(original: false)).toJson(),
