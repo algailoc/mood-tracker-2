@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mood_tracker_2/get_it.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await initGetIt();
+
   runApp(const MyApp());
 }
 

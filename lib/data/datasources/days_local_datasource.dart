@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:mood_tracker_2/core/constants.dart';
+import 'package:mood_tracker_2/core/mock/mock_days.dart';
 import 'package:mood_tracker_2/data/models/day_model.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:hive/hive.dart';
@@ -25,10 +26,13 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
   Future<List<DayEntity>> getAllDays() async {
     final data = box.values.toList();
 
-    return data.map((e) {
+    final result = data.map((e) {
       final json = jsonDecode(e);
       return DayModel.fromJson(json);
     }).toList();
+    result.addAll(mockDays);
+
+    return result;
   }
 
   @override
