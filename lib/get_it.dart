@@ -11,9 +11,9 @@ import 'package:mood_tracker_2/domain/repository/statistics_repository.dart';
 import 'package:mood_tracker_2/domain/usecases/days_list_usecase.dart';
 import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
 
-Future<void> initGetIt() async {
-  final getIt = GetIt.instance;
+final getIt = GetIt.instance;
 
+Future<void> initGetIt() async {
   /// Days
   getIt.registerFactory(() => DaysListBloc(getIt()));
   getIt.registerLazySingleton(() => DaysListUsecase(getIt()));
