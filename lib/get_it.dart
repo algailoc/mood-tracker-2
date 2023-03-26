@@ -8,7 +8,9 @@ import 'package:mood_tracker_2/data/repository/statistics_repository_impl.dart';
 import 'package:mood_tracker_2/domain/repository/days_repository.dart';
 import 'package:mood_tracker_2/domain/repository/settings_repository.dart';
 import 'package:mood_tracker_2/domain/repository/statistics_repository.dart';
+import 'package:mood_tracker_2/domain/usecases/day_usecase.dart';
 import 'package:mood_tracker_2/domain/usecases/days_list_usecase.dart';
+import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -16,7 +18,11 @@ final getIt = GetIt.instance;
 Future<void> initGetIt() async {
   /// Days
   getIt.registerFactory(() => DaysListBloc(getIt()));
+  getIt.registerFactory(() => DayBloc(getIt()));
+
   getIt.registerLazySingleton(() => DaysListUsecase(getIt()));
+  getIt.registerLazySingleton(() => DayUsecase(getIt()));
+
   getIt
       .registerLazySingleton<DaysRepository>(() => DaysRepositoryImpl(getIt()));
   getIt.registerLazySingleton<DaysLocalDataSource>(

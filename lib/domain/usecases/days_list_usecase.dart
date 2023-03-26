@@ -9,6 +9,4 @@ class DaysListUsecase {
   Future<List<DayEntity>> getDaysList() {
     return repository.getAllDays();
   }
-
-  Future<void> addDay(DayEntity day) async {}
 }

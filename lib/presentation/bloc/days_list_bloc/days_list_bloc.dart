@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/core/errors.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
@@ -29,7 +30,7 @@ class DaysListBloc extends Bloc<DaysListEvent, DaysListState> {
           }
         }
       } else if (event is AddDayEvent) {
-        await usecase.addDay(event.day);
+        await Navigator.of(event.context).pushNamed('routeName');
       }
     });
   }

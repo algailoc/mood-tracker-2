@@ -8,7 +8,7 @@ class DaysRepositoryImpl implements DaysRepository {
   DaysRepositoryImpl(this.localDataSource);
 
   @override
-  Future<void> addDay(DayEntity day) {
+  Future<DayEntity> addDay(DayEntity day) {
     return localDataSource.addDay(day);
   }
 

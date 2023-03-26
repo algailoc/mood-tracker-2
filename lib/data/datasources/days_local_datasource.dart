@@ -5,9 +5,10 @@ import 'package:mood_tracker_2/core/mock/mock_days.dart';
 import 'package:mood_tracker_2/data/models/day_model.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:hive/hive.dart';
+import 'package:uuid/uuid.dart';
 
 abstract class DaysLocalDataSource {
-  Future<void> addDay(DayEntity day);
+  Future<DayEntity> addDay(DayEntity day);
   Future<void> updateDay(DayEntity day);
 
   Future<List<DayEntity>> getAllDays();
@@ -18,8 +19,17 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
   final box = Hive.box(daysBoxName);
 
   @override
-  Future<void> addDay(DayEntity day) {
-    return box.put(day.id, DayModel.fromEntity(day).toJson());
+  Future<DayEntity> addDay(DayEntity day) async {
+    var id = const Uuid().v4();
+
+    // Checking that id is unique
+    while ((await box.get(id)) != null) {
+      id = const Uuid().v4();
+    }
+
+    await box.put(day.id, DayModel.fromEntity(day).toJson());
+
+    return day.copyWith(id: id);
   }
 
   @override

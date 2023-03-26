@@ -12,6 +12,7 @@ class DayModel extends DayEntity {
     List<String> activities = const [],
     List<String> goodStuff = const [],
     List<String> badStuff = const [],
+    String? description,
   }) : super(
           id: id,
           date: date,
@@ -20,6 +21,7 @@ class DayModel extends DayEntity {
           activities: activities,
           goodStuff: goodStuff,
           badStuff: badStuff,
+          description: description,
         );
 
   String toJson() {
@@ -31,6 +33,7 @@ class DayModel extends DayEntity {
       'activities': activities,
       'goodStuff': goodStuff,
       'badStuff': badStuff,
+      'description': description,
     });
   }
 
@@ -43,6 +46,7 @@ class DayModel extends DayEntity {
       activities: json['activities'],
       goodStuff: json['goodStuff'],
       badStuff: json['badStuff'],
+      description: json['description'],
     );
   }
 
@@ -55,9 +59,10 @@ class DayModel extends DayEntity {
       activities: entity.activities,
       goodStuff: entity.goodStuff,
       badStuff: entity.badStuff,
+      description: entity.description,
     );
   }
 
   @override
-  List<Object?> get props => [id, date, mood, foods, activities];
+  List<Object?> get props => [id, date, mood, foods, activities, description];
 }

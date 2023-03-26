@@ -9,6 +9,7 @@ class DayEntity extends Equatable {
   final List<String> foods;
   final List<String> goodStuff;
   final List<String> badStuff;
+  final String? description;
 
   const DayEntity({
     required this.id,
@@ -18,6 +19,7 @@ class DayEntity extends Equatable {
     this.foods = const [],
     this.goodStuff = const [],
     this.badStuff = const [],
+    this.description,
   });
 
   DayEntity copyWith({
@@ -28,6 +30,7 @@ class DayEntity extends Equatable {
     List<String>? foods,
     List<String>? goodStuff,
     List<String>? badStuff,
+    String? description,
   }) {
     return DayEntity(
       id: id ?? this.id,
@@ -37,11 +40,12 @@ class DayEntity extends Equatable {
       foods: foods ?? this.foods,
       goodStuff: goodStuff ?? this.goodStuff,
       badStuff: badStuff ?? this.badStuff,
+      description: description ?? this.description,
     );
   }
 
   @override
-  List<Object?> get props => [id, date, mood, foods, activities];
+  List<Object?> get props => [id, date, mood, foods, activities, description];
 
   @override
   bool? get stringify => true;
