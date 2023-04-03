@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/core/router.dart';
@@ -8,9 +9,19 @@ import 'package:mood_tracker_2/presentation/screens/days_list_screen/days_list_s
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await EasyLocalization.ensureInitialized();
+
   await initGetIt();
 
-  runApp(const MyApp());
+  // runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('ru'), Locale('en')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('ru'),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,6 +37,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         title: 'Mood Tracker 2',
         theme: ThemeData(
             colorScheme: ColorScheme(
