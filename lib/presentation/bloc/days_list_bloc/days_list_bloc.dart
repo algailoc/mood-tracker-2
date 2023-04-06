@@ -13,10 +13,10 @@ class DaysListBloc extends Bloc<DaysListEvent, DaysListState> {
 
   final List<DayEntity> days = [];
 
-  DaysListBloc(this.usecase) : super(DaysListInitial()) {
+  DaysListBloc(this.usecase) : super(const DaysListInitial()) {
     on<DaysListEvent>((event, emit) async {
       if (event is FetchDaysListEvent) {
-        emit(DaysListPending());
+        emit(DaysListPending(days: days));
         try {
           final result = await usecase.getDaysList();
           days.clear();
@@ -24,9 +24,15 @@ class DaysListBloc extends Bloc<DaysListEvent, DaysListState> {
           emit(DaysListLoaded(days));
         } catch (e) {
           if (e is DaysParseException) {
-            emit(const DaysListLoadingError('Ошибка при расшифровке'));
+            emit(DaysListLoadingError(
+              error: 'Ошибка при расшифровке',
+              days: days,
+            ));
           } else {
-            emit(const DaysListLoadingError('Ошибка при загрузке списка'));
+            emit(DaysListLoadingError(
+              error: 'Ошибка при загрузке списка',
+              days: days,
+            ));
           }
         }
       } else if (event is AddDayEvent) {
