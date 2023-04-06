@@ -9,18 +9,12 @@ abstract class DayEvent extends Equatable {
 
 class InitDayEvent extends DayEvent {
   final DayEntity? day;
-  final DateTime? date;
+  final DateTime date;
 
-  const InitDayEvent({this.day, this.date});
+  const InitDayEvent({this.day, required this.date});
 }
 
-class DayAddEvent extends DayEvent {
-  const DayAddEvent();
-}
-
-class UpdateDayEvent extends DayEvent {
-  const UpdateDayEvent();
-}
+class SaveDayEvent extends DayEvent {}
 
 class UpdateMoodEvent extends DayEvent {
   final Mood mood;
@@ -65,15 +59,15 @@ class RemoveGoodStuffEvent extends DayEvent {
 }
 
 class AddBadStuffEvent extends DayEvent {
-  final String goodStuff;
+  final String badStuff;
 
-  const AddBadStuffEvent(this.goodStuff);
+  const AddBadStuffEvent(this.badStuff);
 }
 
 class RemoveBadStuffEvent extends DayEvent {
-  final String goodStuff;
+  final String badStuff;
 
-  const RemoveBadStuffEvent(this.goodStuff);
+  const RemoveBadStuffEvent(this.badStuff);
 }
 
 class UpdateDescriptionEvent extends DayEvent {
