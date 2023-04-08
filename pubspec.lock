@@ -183,10 +183,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_smart_dialog
-      sha256: a477c9e5b5b93b481b7d565413858d038b2c1a5b3583db84f8627be7223d5ed7
+      sha256: f574fe88af6af8ca5d54a4e2e1df60ba87091b8ee2ddfc712664306eb29b766b
       url: "https://pub.dev"
     source: hosted
-    version: "4.9.0+3"
+    version: "4.9.0+5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -277,6 +277,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  path_provider:
+    dependency: "direct main"
+    description:
+      name: path_provider
+      sha256: c7edf82217d4b2952b2129a61d3ad60f1075b9299e629e149a8d2e39c2e6aad4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.14"
+  path_provider_android:
+    dependency: transitive
+    description:
+      name: path_provider_android
+      sha256: "019f18c9c10ae370b08dce1f3e3b73bc9f58e7f087bb5e921f06529438ac0ae7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.24"
+  path_provider_foundation:
+    dependency: transitive
+    description:
+      name: path_provider_foundation
+      sha256: "818b2dc38b0f178e0ea3f7cf3b28146faab11375985d815942a68eee11c2d0f7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   path_provider_linux:
     dependency: transitive
     description:

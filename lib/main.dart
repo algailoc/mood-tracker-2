@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
+import 'package:mood_tracker_2/core/constants.dart';
 import 'package:mood_tracker_2/core/router.dart';
 import 'package:mood_tracker_2/get_it.dart';
 import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
 import 'package:mood_tracker_2/presentation/screens/days_list_screen/days_list_screen.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +18,15 @@ void main() async {
 
   await initGetIt();
 
-  // runApp(const MyApp());
+  final path = await getApplicationDocumentsDirectory();
+  Hive.init(path.path);
+
+  await Hive.openBox(daysBoxName);
+  await Hive.openBox(activitiesBoxName);
+  await Hive.openBox(foodsBoxName);
+  await Hive.openBox(goodStuffBoxName);
+  await Hive.openBox(badStuffBoxName);
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('ru'), Locale('en')],
@@ -32,7 +45,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt<DaysListBloc>(),
+          create: (context) => getIt<DaysListBloc>()..add(FetchDaysListEvent()),
         ),
       ],
       child: MaterialApp(
@@ -45,7 +58,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme(
           brightness: Brightness.light,
           primary: Colors.pink.shade200,
-          onPrimary: Colors.grey,
+          onPrimary: Colors.grey.shade200,
           secondary: Colors.amber.shade200,
           onSecondary: Colors.black,
           error: Colors.red,

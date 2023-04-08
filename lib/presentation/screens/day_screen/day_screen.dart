@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mood_tracker_2/domain/entities/day_entity.dart';
+import 'package:mood_tracker_2/core/params.dart';
 import 'package:mood_tracker_2/get_it.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
 
 class DayScreen extends StatelessWidget {
-  final DayEntity? day;
+  final DayScreenParams params;
 
-  const DayScreen({required this.day, super.key});
+  const DayScreen({required this.params, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class DayScreen extends StatelessWidget {
           create: (context) => getIt<DayBloc>()
             ..add(
               InitDayEvent(
-                date: day?.date ?? DateTime.now(),
-                day: day,
+                date: params.day?.date ?? params.dateTime,
+                day: params.day,
               ),
             ),
         ),
