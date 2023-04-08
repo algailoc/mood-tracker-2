@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/core/params.dart';
 import 'package:mood_tracker_2/core/router.dart';
-import 'package:mood_tracker_2/helpers/choose_date_dialog.dart';
 import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
 import 'package:mood_tracker_2/presentation/widgets/days_list/day_item.dart';
+import 'package:mood_tracker_2/core/helpers/choose_date_dialog.dart';
 
 class DaysListScreen extends StatelessWidget {
   const DaysListScreen({super.key});
@@ -25,6 +26,22 @@ class DaysListScreen extends StatelessWidget {
       disabledDays: dates,
     );
     if (date == null) return;
+
+    final now = DateTime.now();
+    final nowDate = DateTime(now.year, now.month, now.day);
+    final todayDays = days.where((element) => element.date == nowDate);
+
+    // Проверка на случай того, что это уже заполненный сегодняшний день
+    // Нужна, потому что метод [showDatePicker] требует, чтобы изначальное число было активным
+    if (date == nowDate && todayDays.isNotEmpty) {
+      navigator.pushNamed(
+        routeDayScreen,
+        arguments: DayScreenParams(
+          dateTime: todayDays.first.date,
+          day: todayDays.first,
+        ),
+      );
+    }
 
     navigator.pushNamed(
       routeDayScreen,
@@ -53,6 +70,7 @@ class DaysListScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary,
           radius: 30,
           child: IconButton(
+            tooltip: const Text('addDay').tr().data,
             onPressed: () => _onAddPressed(context),
             icon: const Icon(
               Icons.add,
@@ -63,8 +81,12 @@ class DaysListScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView.separated(
+            padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
             itemBuilder: (context, index) => DayItem(dayEntity: days[index]),
-            separatorBuilder: (context, index) => const Divider(),
+            separatorBuilder: (context, index) => const Divider(
+              color: Colors.transparent,
+              // height: 2,
+            ),
             itemCount: days.length,
           ),
         ),
@@ -79,8 +101,15 @@ class _CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      title: const Text(
+        'Mood Tracker',
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       actions: [
         IconButton(
+          tooltip: const Text('statistics').tr().data,
           onPressed: () {
             // go to statistics
           },

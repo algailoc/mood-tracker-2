@@ -3,5 +3,8 @@
     "bad": "Bad",
     "mediocre": "Mediocre",
     "good": "Good",
-    "great": "Great"
+    "great": "Great",
+
+    "statistics": "Statistics",
+    "addDay": "Add day" 
 }

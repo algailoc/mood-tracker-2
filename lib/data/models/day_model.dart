@@ -25,9 +25,11 @@ class DayModel extends DayEntity {
         );
 
   String toJson() {
+    final dateWithoutTime = DateTime(date.year, date.month, date.day);
+
     return jsonEncode({
       'id': id,
-      'date': date.millisecondsSinceEpoch,
+      'date': dateWithoutTime.millisecondsSinceEpoch,
       'mood': mood.name,
       'foods': foods,
       'activities': activities,

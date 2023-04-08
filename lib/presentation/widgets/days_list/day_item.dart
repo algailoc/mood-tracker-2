@@ -21,22 +21,33 @@ class DayItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(dayEntity.mood.name).tr(),
-      leading: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            DateFormat('DD.MM').format(dayEntity.date),
-          ),
-          Text(
-            dayEntity.date.year.toString(),
-          )
-        ],
-      ),
-      trailing: IconButton(
-        onPressed: () => onDayPressed(context),
-        icon: const Icon(Icons.arrow_right),
+    return Material(
+      elevation: 5,
+      child: ListTile(
+        splashColor: Theme.of(context).colorScheme.primary,
+        onTap: () => onDayPressed(context),
+        title: Text(dayEntity.mood.name).tr(),
+        leading: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              DateFormat('DD.MM').format(dayEntity.date),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+            Text(
+              dayEntity.date.year.toString(),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            )
+          ],
+        ),
+        trailing: const Icon(
+          Icons.arrow_right,
+          size: 30,
+        ),
       ),
     );
   }
