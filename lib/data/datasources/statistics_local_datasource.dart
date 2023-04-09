@@ -9,8 +9,11 @@ abstract class StatisticsLocalDataSource {
   Future<void> addActivity(ActivityEntity activity);
   Future<void> addFood(FoodEntity food);
 
-  Future<void> updateActivities(List<ActivityEntity> activities);
-  Future<void> updateFood(List<FoodEntity> foods);
+  Future<void> updateActivitiesRating(List<ActivityEntity> activities);
+  Future<void> updateFoodRating(List<FoodEntity> foods);
+
+  Future<void> updateActivityName(String id, String name);
+  Future<void> updateFoodName(String id, String name);
 
   Future<void> deleteActivity(String id);
   Future<void> deleteFood(String id);
@@ -21,7 +24,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   final activitiesBox = Hive.box(activitiesBoxName);
 
   @override
-  Future<void> updateActivities(List<ActivityEntity> activities) {
+  Future<void> updateActivitiesRating(List<ActivityEntity> activities) {
     final map = {};
 
     for (var activity in activities) {
@@ -32,7 +35,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   }
 
   @override
-  Future<void> updateFood(List<FoodEntity> foods) {
+  Future<void> updateFoodRating(List<FoodEntity> foods) {
     final map = {};
 
     for (var food in foods) {
@@ -66,5 +69,17 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   @override
   Future<void> deleteFood(String id) {
     return foodsBox.delete(id);
+  }
+
+  @override
+  Future<void> updateActivityName(String id, String name) {
+    // TODO: implement updateActivityName
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateFoodName(String id, String name) {
+    // TODO: implement updateFoodName
+    throw UnimplementedError();
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';

@@ -5,8 +5,11 @@ abstract class StatisticsRepository {
   Future<void> addActivity(ActivityEntity activity);
   Future<void> addFood(FoodEntity food);
 
-  Future<void> updateActivities(List<ActivityEntity> activities);
-  Future<void> updateFood(List<FoodEntity> foods);
+  Future<void> updateActivitiesRatings(List<ActivityEntity> activities);
+  Future<void> updateFoodRatings(List<FoodEntity> foods);
+
+  Future<void> updateActivityName(String id, String name);
+  Future<void> updateFoodName(String id, String name);
 
   Future<void> deleteActivity(String id);
   Future<void> deleteFood(String id);

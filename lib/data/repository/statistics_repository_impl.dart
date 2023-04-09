@@ -29,12 +29,22 @@ class StatisticsRepositoryImpl implements StatisticsRepository {
   }
 
   @override
-  Future<void> updateActivities(List<ActivityEntity> activities) {
-    return localDataSource.updateActivities(activities);
+  Future<void> updateActivitiesRatings(List<ActivityEntity> activities) {
+    return localDataSource.updateActivitiesRating(activities);
   }
 
   @override
-  Future<void> updateFood(List<FoodEntity> foods) {
-    return localDataSource.updateFood(foods);
+  Future<void> updateFoodRatings(List<FoodEntity> foods) {
+    return localDataSource.updateFoodRating(foods);
+  }
+
+  @override
+  Future<void> updateActivityName(String id, String name) {
+    return localDataSource.updateActivityName(id, name);
+  }
+
+  @override
+  Future<void> updateFoodName(String id, String name) {
+    return localDataSource.updateFoodName(id, name);
   }
 }
