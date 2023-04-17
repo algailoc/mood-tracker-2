@@ -6,6 +6,9 @@ import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 
 abstract class StatisticsLocalDataSource {
+  Future<List<ActivityEntity>> getAllActivities();
+  Future<List<FoodEntity>> getAllFoods();
+
   Future<void> addActivity(ActivityEntity activity);
   Future<void> addFood(FoodEntity food);
 
@@ -72,14 +75,41 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   }
 
   @override
-  Future<void> updateActivityName(String id, String name) {
-    // TODO: implement updateActivityName
-    throw UnimplementedError();
+  Future<void> updateActivityName(String id, String name) async {
+    final oldJson = await activitiesBox.get(id);
+    final oldActivity = ActivityModel.fromJson(oldJson);
+    final newActivity =
+        ActivityModel.fromEntity(oldActivity.copyWith(name: name));
+    return activitiesBox.put(id, newActivity.toJson());
   }
 
   @override
-  Future<void> updateFoodName(String id, String name) {
-    // TODO: implement updateFoodName
-    throw UnimplementedError();
+  Future<void> updateFoodName(String id, String name) async {
+    final oldJson = await foodsBox.get(id);
+    final oldFood = FoodModel.fromJson(oldJson);
+    final newFood = FoodModel.fromEntity(oldFood.copyWith(name: name));
+    return foodsBox.put(id, newFood.toJson());
+  }
+
+  @override
+  Future<List<ActivityEntity>> getAllActivities() async {
+    final activitiesList = activitiesBox.values.toList();
+    final result = <ActivityEntity>[];
+    for (var json in activitiesList) {
+      result.add(ActivityModel.fromJson(json));
+    }
+
+    return result;
+  }
+
+  @override
+  Future<List<FoodEntity>> getAllFoods() async {
+    final foodsList = foodsBox.values.toList();
+    final result = <FoodEntity>[];
+    for (var json in foodsList) {
+      result.add(FoodModel.fromJson(json));
+    }
+
+    return result;
   }
 }

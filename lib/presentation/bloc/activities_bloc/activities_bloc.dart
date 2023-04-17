@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
+import 'package:mood_tracker_2/domain/usecases/statistics_usecase.dart';
 
 part 'activities_event.dart';
 part 'activities_state.dart';
 
 class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
+  final StatisticsUsecase usecase;
+
   final activities = <ActivityEntity>[];
   final _removedActivitiesIds = <String>[];
   final _addedActivitiesIds = <String>[];
@@ -18,7 +21,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
   // TODO: need event for changing mood
   Mood _newMood = Mood.mediocre;
 
-  ActivitiesBloc() : super(const ActivitiesInitial([])) {
+  ActivitiesBloc(this.usecase) : super(const ActivitiesInitial([])) {
     on<ActivitiesEvent>((event, emit) async {
       if (event is InitActivitiesBlocEvent) {
         emit(ActivitiesPendingState(activities));
@@ -27,7 +30,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         _oldMood = event.originalMood;
         _newMood = _oldMood;
 
-        // TODO: load activities
+        activities.addAll(await usecase.getAllActivities());
 
         emit(ActivitiesLoadedState(activities));
       }
@@ -49,7 +52,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
               )
               .toList();
 
-          //TODO: then make call to update these activities
+          await usecase.updateActivitiesRatings(activities);
 
           listToUpdate.clear();
         }
@@ -74,7 +77,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
           listToUpdate.add(newActivity);
         }
 
-        //TODO: then make call to update these activities
+        await usecase.updateActivitiesRatings(activities);
 
         emit(ActivitiesLoadedState(activities));
       }
@@ -115,7 +118,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         final index =
             activities.indexWhere((element) => element.id == event.activityId);
         if (index > -1) {
-          //TODO: call for update
+          await usecase.updateActivityName(event.activityId, event.newName);
           activities[index] = activities[index].copyWith(name: event.newName);
         }
 

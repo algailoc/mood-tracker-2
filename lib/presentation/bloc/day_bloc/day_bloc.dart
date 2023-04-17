@@ -62,7 +62,9 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emitLoadedState();
       } else if (event is AddGoodStuffEvent) {
         final newGoodStuff = day.goodStuff;
-        newGoodStuff.add(event.goodStuff);
+        if (!newGoodStuff.contains(event.goodStuff)) {
+          newGoodStuff.add(event.goodStuff);
+        }
         day = day.copyWith(goodStuff: newGoodStuff);
 
         emitLoadedState();
@@ -74,7 +76,9 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emitLoadedState();
       } else if (event is AddBadStuffEvent) {
         final newBadStuff = day.badStuff;
-        newBadStuff.add(event.badStuff);
+        if (!newBadStuff.contains(event.badStuff)) {
+          newBadStuff.add(event.badStuff);
+        }
         day = day.copyWith(badStuff: newBadStuff);
 
         emitLoadedState();

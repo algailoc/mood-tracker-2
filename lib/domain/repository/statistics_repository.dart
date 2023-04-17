@@ -2,6 +2,9 @@ import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 
 abstract class StatisticsRepository {
+  Future<List<ActivityEntity>> getAllActivities();
+  Future<List<FoodEntity>> getAllFoods();
+
   Future<void> addActivity(ActivityEntity activity);
   Future<void> addFood(FoodEntity food);
 

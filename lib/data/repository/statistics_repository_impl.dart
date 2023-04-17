@@ -47,4 +47,14 @@ class StatisticsRepositoryImpl implements StatisticsRepository {
   Future<void> updateFoodName(String id, String name) {
     return localDataSource.updateFoodName(id, name);
   }
+
+  @override
+  Future<List<ActivityEntity>> getAllActivities() {
+    return localDataSource.getAllActivities();
+  }
+
+  @override
+  Future<List<FoodEntity>> getAllFoods() {
+    return localDataSource.getAllFoods();
+  }
 }
