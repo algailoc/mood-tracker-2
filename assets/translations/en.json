@@ -6,5 +6,15 @@
     "great": "Great",
 
     "statistics": "Statistics",
-    "addDay": "Add day" 
+    "addDay": "Add day",
+
+    "mood": "Mood",
+    "foods": "Food",
+    "activities": "Activity",
+    "goodStuff": "Good things",
+    "badStuff": "Bad things",
+    "other": "Other",
+
+    "newDay": "New day"
+
 }

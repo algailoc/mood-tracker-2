@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
-import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 import 'package:mood_tracker_2/domain/usecases/statistics_usecase.dart';
 
@@ -15,10 +14,8 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
   final _removedActivitiesIds = <String>[];
   final _addedActivitiesIds = <String>[];
   final _pickedActivities = <ActivityEntity>[];
-  // TODO: assign this variable in init
   bool _isCreate = false;
   Mood _oldMood = Mood.mediocre;
-  // TODO: need event for changing mood
   Mood _newMood = Mood.mediocre;
 
   ActivitiesBloc(this.usecase) : super(const ActivitiesInitial([])) {

@@ -3,16 +3,24 @@ import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 import 'package:mood_tracker_2/domain/repository/statistics_repository.dart';
 
 class StatisticsUsecase {
+  List<ActivityEntity> _activities = [];
+  List<FoodEntity> _foods = [];
+
+  List<ActivityEntity> get activities => _activities;
+  List<FoodEntity> get foods => _foods;
+
   final StatisticsRepository repository;
 
   StatisticsUsecase(this.repository);
 
   Future<List<ActivityEntity>> getAllActivities() async {
-    return repository.getAllActivities();
+    _activities = await repository.getAllActivities();
+    return _activities;
   }
 
   Future<List<FoodEntity>> getAllFoods() async {
-    return repository.getAllFoods();
+    _foods = await repository.getAllFoods();
+    return _foods;
   }
 
   Future<void> addActivity(ActivityEntity activity) async {

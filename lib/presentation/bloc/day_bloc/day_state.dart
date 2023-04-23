@@ -14,35 +14,23 @@ class DayInitial extends DayState {
 }
 
 class DaySelected extends DayState {
-  const DaySelected({
-    required DayEntity dayEntity,
-  }) : super(
-          dayEntity: dayEntity,
-        );
+  const DaySelected({required super.dayEntity});
 }
 
 class DayAddPending extends DayState {
-  const DayAddPending() : super(dayEntity: null);
+  const DayAddPending({required super.dayEntity});
 }
 
 class DayAddError extends DayState {
   final String error;
 
-  const DayAddError({required this.error}) : super(dayEntity: null);
+  const DayAddError({required this.error, required super.dayEntity});
 }
 
 class DayAddSuccess extends DayState {
-  const DayAddSuccess({
-    required DayEntity dayEntity,
-  }) : super(
-          dayEntity: dayEntity,
-        );
+  const DayAddSuccess({required super.dayEntity});
 }
 
 class DayUpdated extends DayState {
-  const DayUpdated({
-    required DayEntity dayEntity,
-  }) : super(
-          dayEntity: dayEntity,
-        );
+  const DayUpdated({required super.dayEntity});
 }

@@ -31,7 +31,10 @@ class DayItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              DateFormat('DD.MM').format(dayEntity.date),
+              DateFormat(dayEntity.date.year == DateTime.now().year
+                      ? 'DD.MM'
+                      : 'DD.MM.yyyy')
+                  .format(dayEntity.date),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
               ),
