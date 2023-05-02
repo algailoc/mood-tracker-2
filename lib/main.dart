@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:hive/hive.dart';
 import 'package:mood_tracker_2/core/constants.dart';
 import 'package:mood_tracker_2/core/router.dart';
@@ -70,6 +69,8 @@ class MyApp extends StatelessWidget {
         )),
         onGenerateRoute: onGenerateRoute,
         home: const DaysListScreen(),
+        navigatorObservers: [FlutterSmartDialog.observer],
+        builder: FlutterSmartDialog.init(),
       ),
     );
   }

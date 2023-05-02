@@ -1,20 +1,39 @@
 {
-    "awful": "Awful",
-    "bad": "Bad",
-    "mediocre": "Mediocre",
-    "good": "Good",
-    "great": "Great",
+  "statistics": "Statistics",
+  "addDay": "Add day",
 
-    "statistics": "Statistics",
-    "addDay": "Add day",
+  "mood": "Mood",
+  "foods": "Food",
+  "activities": "Activity",
+  "goodStuff": "Good things",
+  "badStuff": "Bad things",
+  "other": "Other",
 
-    "mood": "Mood",
-    "foods": "Food",
-    "activities": "Activity",
-    "goodStuff": "Good things",
-    "badStuff": "Bad things",
-    "other": "Other",
+  "newDay": "New day",
 
-    "newDay": "New day"
+  "awful": {
+    "masc": "Awful",
+    "neut": "Awful"
+  },
+  "bad": {
+    "masc": "Bad",
+    "neut": "Bad"
+  },
+  "mediocre": {
+    "masc": "Mediocre",
+    "neut": "Mediocre"
+  },
+  "good": {
+    "masc": "Good",
+    "neut": "Good"
+  },
+  "great": {
+    "masc": "Great",
+    "neut": "Great"
+  },
 
+  "save": "Save",
+  "cancel": "Cancel",
+  "leave": "Leave",
+  "leaveWithoutSaveConfirmation": "Are you sure you want to leave without saving?"
 }

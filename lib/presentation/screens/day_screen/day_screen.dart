@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/core/params.dart';
 import 'package:mood_tracker_2/core/router.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
+import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 import 'package:mood_tracker_2/get_it.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
+import 'package:mood_tracker_2/presentation/screens/day_screen/day_screen_body.dart';
 
 class DayScreen extends StatelessWidget {
   final DayScreenParams params;
@@ -28,8 +30,23 @@ class DayScreen extends StatelessWidget {
             ),
         ),
         BlocProvider<ActivitiesBloc>(
-            create: (context) => getIt<ActivitiesBloc>()),
-        BlocProvider<FoodsBloc>(create: (context) => getIt<FoodsBloc>()),
+          create: (context) => getIt<ActivitiesBloc>()
+            ..add(
+              const InitActivitiesBlocEvent(
+                isCreate: false,
+                originalMood: Mood.mediocre,
+              ),
+            ),
+        ),
+        BlocProvider<FoodsBloc>(
+          create: (context) => getIt<FoodsBloc>()
+            ..add(
+              const InitFoodsBlocEvent(
+                isCreate: false,
+                originalMood: Mood.mediocre,
+              ),
+            ),
+        ),
       ],
       child: BlocBuilder<DayBloc, DayState>(
         builder: (context, state) => const _ScreenBody(),
@@ -87,7 +104,7 @@ class _ScreenBody extends StatelessWidget {
             IconButton(
               onPressed: () => navigateToEditScreen(
                 context,
-                state.dayEntity!,
+                day,
               ),
               icon: const Icon(
                 Icons.mode_edit_outline_outlined,
@@ -95,6 +112,7 @@ class _ScreenBody extends StatelessWidget {
             ),
           ],
         ),
+        body: const DayScreenBody(),
       );
     });
   }

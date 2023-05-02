@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
+import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 import 'package:mood_tracker_2/domain/usecases/statistics_usecase.dart';
 
@@ -11,12 +14,19 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
   final StatisticsUsecase usecase;
 
   final activities = <ActivityEntity>[];
-  final _removedActivitiesIds = <String>[];
-  final _addedActivitiesIds = <String>[];
-  final _pickedActivities = <ActivityEntity>[];
+  final _removedActivitiesIds = <String>{};
+  final _addedActivitiesIds = <String>{};
+  final _pickedActivities = <String>{};
+
+  late final Set<String> _originalActivities;
+
   bool _isCreate = false;
   Mood _oldMood = Mood.mediocre;
   Mood _newMood = Mood.mediocre;
+
+  bool isActivityPicked(String id) {
+    return _pickedActivities.contains(id);
+  }
 
   ActivitiesBloc(this.usecase) : super(const ActivitiesInitial([])) {
     on<ActivitiesEvent>((event, emit) async {
@@ -28,6 +38,11 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         _newMood = _oldMood;
 
         activities.addAll(await usecase.getAllActivities());
+
+        if (event.day != null) {
+          _originalActivities = event.day!.activities.toSet();
+          _pickedActivities.addAll(_originalActivities);
+        }
 
         emit(ActivitiesLoadedState(activities));
       }
@@ -42,10 +57,12 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         if (_oldMood != _newMood && !_isCreate) {
           final listToUpdate = _pickedActivities
               .map(
-                (e) => e.changeRating(
-                  oldMood: _oldMood,
-                  newMood: _newMood,
-                ),
+                (e) => activities
+                    .firstWhere((element) => element.id == e)
+                    .changeRating(
+                      oldMood: _oldMood,
+                      newMood: _newMood,
+                    ),
               )
               .toList();
 
@@ -84,11 +101,15 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       ////////////////////////////////////
 
       else if (event is SelectActivityEvent) {
-        if (_removedActivitiesIds.contains(event.activityId)) {
-          _removedActivitiesIds.remove(event.activityId);
-        } else {
-          _addedActivitiesIds.add(event.activityId);
+        if (_originalActivities.contains(event.activityId)) {
+          if (_removedActivitiesIds.contains(event.activityId)) {
+            _removedActivitiesIds.remove(event.activityId);
+          } else {
+            _addedActivitiesIds.add(event.activityId);
+          }
         }
+
+        _pickedActivities.add(event.activityId);
 
         emit(ActivitiesLoadedState(activities));
       }
@@ -98,11 +119,15 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       //////////////////////////////////////
 
       else if (event is UnselectActivityEvent) {
-        if (_addedActivitiesIds.contains(event.activityId)) {
-          _addedActivitiesIds.remove(event.activityId);
-        } else {
-          _removedActivitiesIds.add(event.activityId);
+        if (_originalActivities.contains(event.activityId)) {
+          if (_addedActivitiesIds.contains(event.activityId)) {
+            _addedActivitiesIds.remove(event.activityId);
+          } else {
+            _removedActivitiesIds.add(event.activityId);
+          }
         }
+
+        _pickedActivities.remove(event.activityId);
 
         emit(ActivitiesLoadedState(activities));
       }

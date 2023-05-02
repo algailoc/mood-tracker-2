@@ -72,6 +72,20 @@ class FoodEntity extends Equatable {
     );
   }
 
+  FoodEntity addRating(Mood mood) {
+    final newRating = rating;
+    newRating[mood] = (newRating[mood] ?? 0) + 1;
+
+    return copyWith(rating: newRating);
+  }
+
+  FoodEntity removeRating(Mood mood) {
+    final newRating = rating;
+    newRating[mood] = (newRating[mood] ?? 1) - 1;
+
+    return copyWith(rating: newRating);
+  }
+
   @override
   List<Object?> get props => [id, name, rating];
 

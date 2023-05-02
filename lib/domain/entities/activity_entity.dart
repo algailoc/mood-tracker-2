@@ -7,6 +7,13 @@ class ActivityEntity extends Equatable {
   final Map<Mood, int> rating;
   final bool original;
 
+  const ActivityEntity({
+    required this.id,
+    required this.name,
+    required this.rating,
+    this.original = true,
+  });
+
   double get average {
     int sum = 0;
     int count = 0;
@@ -55,13 +62,6 @@ class ActivityEntity extends Equatable {
 
     return copyWith(rating: newRating);
   }
-
-  const ActivityEntity({
-    required this.id,
-    required this.name,
-    required this.rating,
-    this.original = true,
-  });
 
   ActivityEntity copyWith({
     String? name,

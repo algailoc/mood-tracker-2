@@ -10,10 +10,12 @@ abstract class ActivitiesEvent extends Equatable {
 class InitActivitiesBlocEvent extends ActivitiesEvent {
   final bool isCreate;
   final Mood originalMood;
+  final DayEntity? day;
 
   const InitActivitiesBlocEvent({
     required this.isCreate,
     required this.originalMood,
+    this.day,
   });
 }
 

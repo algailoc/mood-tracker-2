@@ -26,7 +26,7 @@ class DayItem extends StatelessWidget {
       child: ListTile(
         splashColor: Theme.of(context).colorScheme.primary,
         onTap: () => onDayPressed(context),
-        title: Text(dayEntity.mood.name).tr(),
+        title: Text(dayEntity.mood.name).tr(gender: 'masc'),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
