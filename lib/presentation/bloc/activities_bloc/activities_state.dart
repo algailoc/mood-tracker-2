@@ -6,7 +6,7 @@ abstract class ActivitiesState extends Equatable {
   const ActivitiesState(this.activities);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [activities];
 }
 
 class ActivitiesInitial extends ActivitiesState {

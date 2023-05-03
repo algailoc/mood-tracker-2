@@ -11,7 +11,7 @@ class DayDescriptionComponent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const DaySegmentTitle('description'),
+        const DaySegmentTitle('other'),
         Text(description),
       ],
     );

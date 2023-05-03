@@ -49,7 +49,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       // if event is save day /////
       /////////////////////////////
 
-      else if (event is SaveDayEvent) {
+      else if (event is FoodsSaveDayEvent) {
         final listToUpdate = <FoodEntity>[];
 
         if (_oldMood != _newMood && !_isCreate) {
@@ -98,6 +98,8 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       ////////////////////////////////////
 
       else if (event is SelectFoodEvent) {
+        emit(FoodsPendingState(foods));
+
         if (_originalFoods.contains(event.foodId)) {
           if (_removedFoodsIds.contains(event.foodId)) {
             _removedFoodsIds.remove(event.foodId);
@@ -116,6 +118,8 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       //////////////////////////////////////
 
       else if (event is UnselectFoodEvent) {
+        emit(FoodsPendingState(foods));
+
         if (_originalFoods.contains(event.foodId)) {
           if (_addedFoodsIds.contains(event.foodId)) {
             _addedFoodsIds.remove(event.foodId);
@@ -134,6 +138,8 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       //////////////////////////////////////
 
       else if (event is ChangeFoodNameEvent) {
+        emit(FoodsPendingState(foods));
+
         final index = foods.indexWhere((element) => element.id == event.foodId);
         if (index > -1) {
           await usecase.updateFoodName(event.foodId, event.newName);

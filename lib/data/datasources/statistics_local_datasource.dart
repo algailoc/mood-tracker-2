@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
 import 'package:mood_tracker_2/core/constants.dart';
 import 'package:mood_tracker_2/core/mock/mock_days.dart';
@@ -78,7 +80,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   @override
   Future<void> updateActivityName(String id, String name) async {
     final oldJson = await activitiesBox.get(id);
-    final oldActivity = ActivityModel.fromJson(oldJson);
+    final oldActivity = ActivityModel.fromJson(jsonDecode(oldJson));
     final newActivity =
         ActivityModel.fromEntity(oldActivity.copyWith(name: name));
     return activitiesBox.put(id, newActivity.toJson());
@@ -87,7 +89,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   @override
   Future<void> updateFoodName(String id, String name) async {
     final oldJson = await foodsBox.get(id);
-    final oldFood = FoodModel.fromJson(oldJson);
+    final oldFood = FoodModel.fromJson(jsonDecode(oldJson));
     final newFood = FoodModel.fromEntity(oldFood.copyWith(name: name));
     return foodsBox.put(id, newFood.toJson());
   }
@@ -97,7 +99,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
     final activitiesList = activitiesBox.values.toList();
     final result = <ActivityEntity>[];
     for (var json in activitiesList) {
-      result.add(ActivityModel.fromJson(json));
+      result.add(ActivityModel.fromJson(jsonDecode(json)));
     }
 
     // return result;
@@ -109,7 +111,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
     final foodsList = foodsBox.values.toList();
     final result = <FoodEntity>[];
     for (var json in foodsList) {
-      result.add(FoodModel.fromJson(json));
+      result.add(FoodModel.fromJson(jsonDecode(json)));
     }
 
     // return result;

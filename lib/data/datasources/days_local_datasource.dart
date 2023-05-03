@@ -42,6 +42,8 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
     }).toList();
     result.addAll(mockDays);
 
+    result.sort((a, b) => b.date.compareTo(a.date));
+
     return result;
   }
 

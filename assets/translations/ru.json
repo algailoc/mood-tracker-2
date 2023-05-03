@@ -35,5 +35,7 @@
   "save": "Сохранить",
   "cancel": "Отмена",
   "leave": "Уйти",
-  "leaveWithoutSaveConfirmation": "Вы уверены, что хотите уйти без сохранения?"
+  "leaveWithoutSaveConfirmation": "Вы уверены, что хотите уйти без сохранения?",
+
+  "errorOnSavingDay": "Произошла ошибка при сохранении дня"
 }

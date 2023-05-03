@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
@@ -51,7 +49,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       // if event is save day /////
       /////////////////////////////
 
-      else if (event is SaveDayEvent) {
+      else if (event is ActivitiesSaveDayEvent) {
         final listToUpdate = <ActivityEntity>[];
 
         if (_oldMood != _newMood && !_isCreate) {
@@ -101,6 +99,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       ////////////////////////////////////
 
       else if (event is SelectActivityEvent) {
+        emit(ActivitiesPendingState(activities));
         if (_originalActivities.contains(event.activityId)) {
           if (_removedActivitiesIds.contains(event.activityId)) {
             _removedActivitiesIds.remove(event.activityId);
@@ -119,6 +118,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       //////////////////////////////////////
 
       else if (event is UnselectActivityEvent) {
+        emit(ActivitiesPendingState(activities));
         if (_originalActivities.contains(event.activityId)) {
           if (_addedActivitiesIds.contains(event.activityId)) {
             _addedActivitiesIds.remove(event.activityId);
@@ -137,9 +137,10 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       //////////////////////////////////////
 
       else if (event is ChangeActivityNameEvent) {
+        emit(ActivitiesPendingState(activities));
         final index =
             activities.indexWhere((element) => element.id == event.activityId);
-        if (index > -1) {
+        if (index != -1) {
           await usecase.updateActivityName(event.activityId, event.newName);
           activities[index] = activities[index].copyWith(name: event.newName);
         }

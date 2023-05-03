@@ -6,7 +6,7 @@ abstract class FoodsState extends Equatable {
   const FoodsState(this.foods);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [foods];
 }
 
 class FoodsInitial extends FoodsState {

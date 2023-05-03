@@ -35,5 +35,7 @@
   "save": "Save",
   "cancel": "Cancel",
   "leave": "Leave",
-  "leaveWithoutSaveConfirmation": "Are you sure you want to leave without saving?"
+  "leaveWithoutSaveConfirmation": "Are you sure you want to leave without saving?",
+
+  "errorOnSavingDay": "An error occured while saving the day"
 }

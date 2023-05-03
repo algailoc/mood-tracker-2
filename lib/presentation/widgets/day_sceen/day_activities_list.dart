@@ -20,6 +20,7 @@ class _DayActivitiesListState extends State<DayActivitiesList> {
   void _activitiesListener(BuildContext context, ActivitiesState state) {
     if (state is ActivitiesLoadedState && state.activities.isNotEmpty) {
       setState(() {
+        activities.clear();
         final allActivities = state.activities;
         for (var id in widget.activitiesIds) {
           final activity = allActivities.where((element) => element.id == id);

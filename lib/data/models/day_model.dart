@@ -43,11 +43,11 @@ class DayModel extends DayEntity {
     return DayModel(
       id: json['id'],
       date: DateTime.fromMillisecondsSinceEpoch(json['date']),
-      mood: Mood.values[json['mood']],
-      foods: json['foods'],
-      activities: json['activities'],
-      goodStuff: json['goodStuff'],
-      badStuff: json['badStuff'],
+      mood: Mood.values.byName(json['mood']),
+      foods: List<String>.from(json['foods']),
+      activities: List<String>.from(json['activities']),
+      goodStuff: List<String>.from(json['goodStuff']),
+      badStuff: List<String>.from(json['badStuff']),
       description: json['description'],
     );
   }

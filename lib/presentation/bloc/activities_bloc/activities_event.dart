@@ -37,7 +37,7 @@ class UnselectActivityEvent extends ActivitiesEvent {
   const UnselectActivityEvent(this.activityId);
 }
 
-class SaveDayEvent extends ActivitiesEvent {}
+class ActivitiesSaveDayEvent extends ActivitiesEvent {}
 
 class ChangeActivityNameEvent extends ActivitiesEvent {
   final String activityId;

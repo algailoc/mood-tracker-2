@@ -37,7 +37,7 @@ class UnselectFoodEvent extends FoodsEvent {
   const UnselectFoodEvent(this.foodId);
 }
 
-class SaveDayEvent extends FoodsEvent {}
+class FoodsSaveDayEvent extends FoodsEvent {}
 
 class ChangeFoodNameEvent extends FoodsEvent {
   final String foodId;

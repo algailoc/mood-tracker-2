@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:mood_tracker_2/core/helpers/confirm_dialog.dart';
 import 'package:mood_tracker_2/core/params.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 import 'package:mood_tracker_2/get_it.dart';
@@ -12,6 +14,20 @@ class DayEditScreen extends StatelessWidget {
   final DayScreenParams params;
 
   const DayEditScreen(this.params, {super.key});
+
+  void _onSavePressed(BuildContext context) {
+    BlocProvider.of<ActivitiesBloc>(context).add(ActivitiesSaveDayEvent());
+    BlocProvider.of<FoodsBloc>(context).add(FoodsSaveDayEvent());
+    BlocProvider.of<DayBloc>(context).add(SaveDayEvent());
+  }
+
+  void _dayBlocListener(BuildContext context, DayState state) {
+    if (state is DayAddSuccess) {
+      Navigator.of(context).pop(state.dayEntity);
+    } else if (state is DayAddError) {
+      SmartDialog.showToast('errorOnSavingDay'.tr());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +62,16 @@ class DayEditScreen extends StatelessWidget {
             ),
         ),
       ],
-      child: BlocBuilder<DayBloc, DayState>(
+      child: BlocConsumer<DayBloc, DayState>(
+        listener: _dayBlocListener,
         builder: (context, state) => Scaffold(
           appBar: AppBar(
             leading: IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                if (await showConfirmDialog()) {
+                  if (context.mounted) Navigator.of(context).pop();
+                }
+              },
               icon: const Icon(
                 Icons.arrow_back_ios_new,
               ),
@@ -60,6 +81,19 @@ class DayEditScreen extends StatelessWidget {
                   ? 'newDay'.tr()
                   : DateFormat('DD.MM.yyyy').format(params.day!.date),
             ),
+            actions: [
+              TextButton(
+                onPressed: () => _onSavePressed(context),
+                child: const Text(
+                  'save',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ).tr(),
+              ),
+            ],
           ),
           body: const _ScreenBody(),
         ),

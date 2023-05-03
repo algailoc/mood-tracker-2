@@ -20,6 +20,7 @@ class _DayFoodsListState extends State<DayFoodsList> {
   void _foodsListener(BuildContext context, FoodsState state) {
     if (state is FoodsLoadedState && state.foods.isNotEmpty) {
       setState(() {
+        foods.clear();
         final allFoods = state.foods;
         for (var id in widget.foodsIds) {
           final food = allFoods.where((element) => element.id == id);

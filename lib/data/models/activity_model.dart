@@ -34,8 +34,8 @@ class ActivityModel extends ActivityEntity {
   factory ActivityModel.fromJson(Map<String, dynamic> json) {
     Map<Mood, int> resultRating = {};
 
-    for (var key in json['rating']) {
-      resultRating[Mood.values[key]] = json['rating'][key];
+    for (var key in Map<String, int>.from(json['rating']).keys) {
+      resultRating[Mood.values.byName(key)] = json['rating'][key];
     }
 
     return ActivityModel(
