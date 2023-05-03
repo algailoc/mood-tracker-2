@@ -8,12 +8,15 @@ class DaySegmentTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: TextStyle(
-        fontWeight: FontWeight.w600,
-        color: Colors.blueGrey.shade800,
-      ),
-    ).tr();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          color: Colors.blueGrey.shade800,
+        ),
+      ).tr(),
+    );
   }
 }

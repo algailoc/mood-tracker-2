@@ -50,7 +50,6 @@ class DayMoodComponent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const DaySegmentTitle('mood'),
-        const SizedBox(height: 12),
         Row(
           children: [
             Icon(

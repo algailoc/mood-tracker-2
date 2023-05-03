@@ -61,7 +61,7 @@ class _ScreenBody extends StatelessWidget {
   void navigateToEditScreen(BuildContext context, DayEntity day) async {
     final dayBloc = BlocProvider.of<DayBloc>(context);
 
-    final DayEntity? newDay = await Navigator.of(context).pushNamed(
+    final newDay = await Navigator.of(context).pushNamed(
       routeEditDayScreen,
       arguments: DayScreenParams(
         dateTime: dayBloc.day.date,

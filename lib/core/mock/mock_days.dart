@@ -19,6 +19,9 @@ final mockDays = [
     mood: Mood.bad,
     activities: _mockActivitiesSlashFoods,
     foods: _mockActivitiesSlashFoods,
+    goodStuff: _mockGoodStuff,
+    badStuff: _mockBadStuff,
+    description: _mockDescription,
   ),
   DayModel(
     id: '2',
@@ -26,6 +29,9 @@ final mockDays = [
     mood: Mood.great,
     activities: _mockActivitiesSlashFoods,
     foods: _mockActivitiesSlashFoods,
+    goodStuff: _mockGoodStuff,
+    badStuff: _mockBadStuff,
+    description: _mockDescription,
   ),
   DayModel(
     id: '3',
@@ -33,6 +39,9 @@ final mockDays = [
     mood: Mood.good,
     activities: _mockActivitiesSlashFoods,
     foods: _mockActivitiesSlashFoods,
+    goodStuff: _mockGoodStuff,
+    badStuff: _mockBadStuff,
+    description: _mockDescription,
   ),
   DayModel(
     id: '4',
@@ -40,6 +49,9 @@ final mockDays = [
     mood: Mood.awful,
     activities: _mockActivitiesSlashFoods,
     foods: _mockActivitiesSlashFoods,
+    goodStuff: _mockGoodStuff,
+    badStuff: _mockBadStuff,
+    description: _mockDescription,
   ),
   DayModel(
     id: '5',
@@ -47,6 +59,9 @@ final mockDays = [
     mood: Mood.mediocre,
     activities: _mockActivitiesSlashFoods,
     foods: _mockActivitiesSlashFoods,
+    goodStuff: _mockGoodStuff,
+    badStuff: _mockBadStuff,
+    description: _mockDescription,
   ),
 ];
 
@@ -199,3 +214,17 @@ final mockFoods = [
     original: true,
   ),
 ];
+
+const _mockGoodStuff = [
+  'As the rental car rolled to a stop on the dark road, her fear increased by the moment',
+  'You bite up because of your lower jaw',
+  'Just because the water is red doesn\'t mean you can\'t drink it'
+];
+const _mockBadStuff = [
+  'He found the end of the rainbow and was surprised at what he found there',
+  'There were three sphered rocks congregating in a cubed room'
+      'He ended up burning his fingers poking someone else\'s fire',
+];
+
+const _mockDescription =
+    'Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.';

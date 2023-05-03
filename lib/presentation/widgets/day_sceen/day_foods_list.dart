@@ -45,7 +45,6 @@ class _DayFoodsListState extends State<DayFoodsList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const DaySegmentTitle('foods'),
-              const SizedBox(height: 12),
               Wrap(
                 children: List.generate(
                   foods.length,
