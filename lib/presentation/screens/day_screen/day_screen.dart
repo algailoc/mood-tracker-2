@@ -60,6 +60,8 @@ class _ScreenBody extends StatelessWidget {
 
   void navigateToEditScreen(BuildContext context, DayEntity day) async {
     final dayBloc = BlocProvider.of<DayBloc>(context);
+    final activitiesBloc = BlocProvider.of<ActivitiesBloc>(context);
+    final foodsBloc = BlocProvider.of<FoodsBloc>(context);
 
     final newDay = await Navigator.of(context).pushNamed(
       routeEditDayScreen,
@@ -68,11 +70,27 @@ class _ScreenBody extends StatelessWidget {
         day: dayBloc.day,
       ),
     );
-    if (newDay != null) {
+    if (newDay != null && newDay is DayEntity) {
       dayBloc.add(InitDayEvent(
         date: day.date,
-        day: day,
+        day: newDay,
       ));
+
+      activitiesBloc.add(
+        InitActivitiesBlocEvent(
+          isCreate: false,
+          originalMood: newDay.mood,
+          day: newDay,
+        ),
+      );
+
+      foodsBloc.add(
+        InitFoodsBlocEvent(
+          isCreate: false,
+          originalMood: newDay.mood,
+          day: newDay,
+        ),
+      );
     }
   }
 

@@ -16,7 +16,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
   final _addedFoodsIds = <String>{};
   final _pickedFoods = <String>{};
 
-  late final Set<String> _originalFoods;
+  Set<String> _originalFoods = {};
 
   bool _isCreate = false;
   Mood _oldMood = Mood.mediocre;
@@ -94,7 +94,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       }
 
       ////////////////////////////////////
-      // if event is choose food /////
+      // if event is choose food /////////
       ////////////////////////////////////
 
       else if (event is SelectFoodEvent) {
@@ -114,7 +114,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       }
 
       //////////////////////////////////////
-      // if event is unchoose food /////
+      // if event is unchoose food /////////
       //////////////////////////////////////
 
       else if (event is UnselectFoodEvent) {
@@ -134,7 +134,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
       }
 
       //////////////////////////////////////
-      // if event is update food ///////
+      // if event is update food ///////////
       //////////////////////////////////////
 
       else if (event is ChangeFoodNameEvent) {
@@ -144,6 +144,21 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
         if (index > -1) {
           await usecase.updateFoodName(event.foodId, event.newName);
           foods[index] = foods[index].copyWith(name: event.newName);
+        }
+
+        emit(FoodsLoadedState(foods));
+      }
+
+      //////////////////////////////////////
+      // if event is delete food ///////////
+      //////////////////////////////////////
+
+      else if (event is DeleteFoodEvent) {
+        emit(FoodsPendingState(foods));
+        await usecase.deleteFood(event.id);
+        final index = foods.indexWhere((element) => element.id == event.id);
+        if (index != -1) {
+          foods.removeAt(index);
         }
 
         emit(FoodsLoadedState(foods));

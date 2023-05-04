@@ -50,14 +50,16 @@ class ActivityEntity extends Equatable {
   }
 
   ActivityEntity addRating(Mood mood) {
-    final newRating = rating;
+    final newRating = <Mood, int>{};
+    newRating.addAll(rating);
     newRating[mood] = (newRating[mood] ?? 0) + 1;
 
     return copyWith(rating: newRating);
   }
 
   ActivityEntity removeRating(Mood mood) {
-    final newRating = rating;
+    final newRating = <Mood, int>{};
+    newRating.addAll(rating);
     newRating[mood] = (newRating[mood] ?? 1) - 1;
 
     return copyWith(rating: newRating);

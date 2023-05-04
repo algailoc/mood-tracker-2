@@ -48,3 +48,9 @@ class ChangeActivityNameEvent extends ActivitiesEvent {
     required this.newName,
   });
 }
+
+class DeleteActivityEvent extends ActivitiesEvent {
+  final String id;
+
+  const DeleteActivityEvent(this.id);
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
+import 'package:mood_tracker_2/presentation/widgets/common/activity_item.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/edit_activity_dialog.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_sceen/segment_title.dart';
 
@@ -52,12 +53,10 @@ class _DayActivitiesListState extends State<DayActivitiesList> {
                   (index) {
                     final activity = activities[index];
 
-                    return InkWell(
-                      customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      highlightColor: Colors.pink.shade100,
-                      onLongPress: () async {
+                    return ActivityItem(
+                      activity: activity,
+                      isSelected: false,
+                      onActivityLongPressed: () async {
                         final newName = await openEditNameDialog(activity.name);
                         if (newName != null && newName != activity.name) {
                           if (context.mounted) {
@@ -70,21 +69,6 @@ class _DayActivitiesListState extends State<DayActivitiesList> {
                           }
                         }
                       },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 2,
-                          horizontal: 3,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 2,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(width: 1),
-                        ),
-                        child: Text(activity.name),
-                      ),
                     );
                   },
                 ),

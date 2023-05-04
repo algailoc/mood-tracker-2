@@ -9,6 +9,7 @@ import 'package:mood_tracker_2/get_it.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
+import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/activities_block.dart';
 
 class DayEditScreen extends StatelessWidget {
   final DayScreenParams params;
@@ -107,6 +108,15 @@ class _ScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        children: const [
+          SizedBox(height: 20),
+          EditActivitiesBlock(),
+          SizedBox(height: 20),
+        ],
+      ),
+    );
   }
 }

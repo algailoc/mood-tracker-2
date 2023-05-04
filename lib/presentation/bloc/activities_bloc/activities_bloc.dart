@@ -16,7 +16,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
   final _addedActivitiesIds = <String>{};
   final _pickedActivities = <String>{};
 
-  late final Set<String> _originalActivities;
+  Set<String> _originalActivities = {};
 
   bool _isCreate = false;
   Mood _oldMood = Mood.mediocre;
@@ -143,6 +143,22 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         if (index != -1) {
           await usecase.updateActivityName(event.activityId, event.newName);
           activities[index] = activities[index].copyWith(name: event.newName);
+        }
+
+        emit(ActivitiesLoadedState(activities));
+      }
+
+      //////////////////////////////////////
+      // if event is delete activity ///////
+      //////////////////////////////////////
+
+      else if (event is DeleteActivityEvent) {
+        emit(ActivitiesPendingState(activities));
+        await usecase.deleteActivity(event.id);
+        final index =
+            activities.indexWhere((element) => element.id == event.id);
+        if (index != -1) {
+          activities.removeAt(index);
         }
 
         emit(ActivitiesLoadedState(activities));

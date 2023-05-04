@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/edit_activity_dialog.dart';
+import 'package:mood_tracker_2/presentation/widgets/common/food_item.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_sceen/segment_title.dart';
 
 class DayFoodsList extends StatefulWidget {
@@ -52,12 +53,10 @@ class _DayFoodsListState extends State<DayFoodsList> {
                   (index) {
                     final food = foods[index];
 
-                    return InkWell(
-                      customBorder: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      highlightColor: Colors.pink.shade100,
-                      onLongPress: () async {
+                    return FoodItem(
+                      food: food,
+                      isSelected: false,
+                      onFoodLongPressed: () async {
                         final newName = await openEditNameDialog(food.name);
                         if (newName != null && newName != food.name) {
                           if (context.mounted) {
@@ -70,21 +69,6 @@ class _DayFoodsListState extends State<DayFoodsList> {
                           }
                         }
                       },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 2,
-                          horizontal: 3,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 2,
-                          horizontal: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(width: 1),
-                        ),
-                        child: Text(food.name),
-                      ),
                     );
                   },
                 ),

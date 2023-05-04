@@ -50,29 +50,30 @@ class DayBloc extends Bloc<DayEvent, DayState> {
       } else if (event is AddActivityEvent) {
         changeChanged();
         final newActivities = day.activities;
-        newActivities.add(event.activity.name);
+        newActivities.add(event.activity.id);
         day = day.copyWith(activities: newActivities);
 
         emitLoadedState();
       } else if (event is RemoveActivityEvent) {
         changeChanged();
         final newActivities = day.activities;
-        newActivities.remove(event.activity.name);
+
+        newActivities.remove(event.activity.id);
         day = day.copyWith(activities: newActivities);
 
         emitLoadedState();
       } else if (event is AddFoodEvent) {
         changeChanged();
         final newFoods = day.foods;
-        newFoods.add(event.food.name);
-        day = day.copyWith(activities: newFoods);
+        newFoods.add(event.food.id);
+        day = day.copyWith(foods: newFoods);
 
         emitLoadedState();
       } else if (event is RemoveFoodEvent) {
         changeChanged();
         final newFoods = day.foods;
-        newFoods.remove(event.food.name);
-        day = day.copyWith(activities: newFoods);
+        newFoods.remove(event.food.id);
+        day = day.copyWith(foods: newFoods);
 
         emitLoadedState();
       } else if (event is AddGoodStuffEvent) {

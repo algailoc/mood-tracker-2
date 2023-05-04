@@ -37,5 +37,10 @@
   "leave": "Уйти",
   "leaveWithoutSaveConfirmation": "Вы уверены, что хотите уйти без сохранения?",
 
+  "delete": "Удалить",
+  "confrimDeleteAct": "Вы точно хотите удалить эту активность?",
+  "confrimDeleteFood": "Вы точно хотите удалить эту еду?",
+  "confrimDeleteDay": "Вы точно хотите удалить этот день?",
+
   "errorOnSavingDay": "Произошла ошибка при сохранении дня"
 }

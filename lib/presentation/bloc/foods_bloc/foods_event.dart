@@ -48,3 +48,9 @@ class ChangeFoodNameEvent extends FoodsEvent {
     required this.newName,
   });
 }
+
+class DeleteFoodEvent extends FoodsEvent {
+  final String id;
+
+  const DeleteFoodEvent(this.id);
+}

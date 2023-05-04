@@ -37,5 +37,10 @@
   "leave": "Leave",
   "leaveWithoutSaveConfirmation": "Are you sure you want to leave without saving?",
 
+  "delete": "Delete",
+  "confrimDeleteAct": "Are you sure you want to delete this activity?",
+  "confrimDeleteFood": "Are you sure you want to delete this food?",
+  "confrimDeleteDay": "Are you sure you want to delete this day?",
+
   "errorOnSavingDay": "An error occured while saving the day"
 }
