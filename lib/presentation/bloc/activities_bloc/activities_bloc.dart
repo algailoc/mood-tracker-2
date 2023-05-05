@@ -64,7 +64,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
               )
               .toList();
 
-          await usecase.updateActivitiesRatings(activities);
+          await usecase.updateActivitiesRatings(listToUpdate);
 
           listToUpdate.clear();
         }

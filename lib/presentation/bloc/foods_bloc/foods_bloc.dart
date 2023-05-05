@@ -63,7 +63,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
               )
               .toList();
 
-          await usecase.updateFoodRatings(foods);
+          await usecase.updateFoodRatings(listToUpdate);
 
           listToUpdate.clear();
         }
