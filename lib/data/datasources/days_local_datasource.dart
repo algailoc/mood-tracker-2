@@ -27,7 +27,7 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
       id = const Uuid().v4();
     }
 
-    await box.put(day.id, DayModel.fromEntity(day).toJson());
+    await box.put(id, DayModel.fromEntity(day).toJson());
 
     return day.copyWith(id: id);
   }
