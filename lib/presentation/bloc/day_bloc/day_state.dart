@@ -34,3 +34,7 @@ class DayAddSuccess extends DayState {
 class DayUpdated extends DayState {
   const DayUpdated({required super.dayEntity});
 }
+
+class DayChanging extends DayState {
+  const DayChanging({required super.dayEntity});
+}

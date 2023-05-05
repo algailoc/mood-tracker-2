@@ -25,6 +25,15 @@ void main() async {
   await Hive.openBox(foodsBoxName);
   await Hive.openBox(goodStuffBoxName);
   await Hive.openBox(badStuffBoxName);
+  await Hive.openBox(settingsBoxName);
+
+  final firstLaunch = await Hive.box(settingsBoxName).get(firstLaunchKey);
+
+  if (firstLaunch == null) {
+    // TODO: insert initial values
+
+    // set to false
+  }
 
   runApp(
     EasyLocalization(

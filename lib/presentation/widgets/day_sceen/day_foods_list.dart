@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
@@ -20,18 +21,38 @@ class _DayFoodsListState extends State<DayFoodsList> {
 
   void _foodsListener(BuildContext context, FoodsState state) {
     if (state is FoodsLoadedState && state.foods.isNotEmpty) {
-      setState(() {
-        foods.clear();
-        final allFoods = state.foods;
-        for (var id in widget.foodsIds) {
-          final food = allFoods.where((element) => element.id == id);
-          if (food.isNotEmpty) {
-            foods.add(food.first);
-          }
-        }
-        foods.sort((a, b) => a.name.compareTo(b.name));
-      });
+      _createList(state.foods);
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant DayFoodsList oldWidget) {
+    final oldActs = oldWidget.foodsIds;
+    final newActs = widget.foodsIds;
+    oldActs.sort();
+    newActs.sort();
+
+    if (listEquals(oldActs, newActs)) {
+      return;
+    }
+
+    _createList(BlocProvider.of<FoodsBloc>(context).foods);
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _createList(List<FoodEntity> all) {
+    setState(() {
+      foods.clear();
+      final allFoods = all;
+      for (var id in widget.foodsIds) {
+        final food = allFoods.where((element) => element.id == id);
+        if (food.isNotEmpty) {
+          foods.add(food.first);
+        }
+      }
+      foods.sort((a, b) => a.name.compareTo(b.name));
+    });
   }
 
   @override

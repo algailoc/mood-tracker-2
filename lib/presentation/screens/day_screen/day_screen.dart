@@ -70,6 +70,7 @@ class _ScreenBody extends StatelessWidget {
         day: dayBloc.day,
       ),
     );
+
     if (newDay != null && newDay is DayEntity) {
       dayBloc.add(InitDayEvent(
         date: day.date,

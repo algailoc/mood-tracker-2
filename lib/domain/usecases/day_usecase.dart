@@ -13,4 +13,8 @@ class DayUsecase {
   Future<void> updateDay(DayEntity day) {
     return repository.updateDay(day);
   }
+
+  Future<DayEntity> getDay(String id) {
+    return repository.getDay(id);
+  }
 }

@@ -29,15 +29,21 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         if (!_wasChanged) {
           _wasChanged = true;
         }
+
+        emit(DayChanging(dayEntity: day));
       }
 
       if (event is InitDayEvent) {
-        day = event.day ??
-            DayEntity(
-              id: '0',
-              date: event.date,
-              mood: Mood.mediocre,
-            );
+        if (event.day != null) {
+          day = await usecase.getDay(event.day!.id);
+        } else {
+          day = DayEntity(
+            id: '0',
+            date: event.date,
+            mood: Mood.mediocre,
+          );
+        }
+        emit(DayChanging(dayEntity: day));
 
         _isCreateDay = event.day == null;
 
@@ -78,6 +84,7 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emitLoadedState();
       } else if (event is AddGoodStuffEvent) {
         changeChanged();
+
         final newGoodStuff = day.goodStuff;
         if (!newGoodStuff.contains(event.goodStuff)) {
           newGoodStuff.add(event.goodStuff);
@@ -89,6 +96,7 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         changeChanged();
         final newGoodStuff = day.goodStuff;
         newGoodStuff.remove(event.goodStuff);
+
         day = day.copyWith(goodStuff: newGoodStuff);
 
         emitLoadedState();
@@ -126,7 +134,7 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         } else {
           try {
             await usecase.updateDay(day);
-            emit(DayAddSuccess(dayEntity: day));
+            emit(DayUpdated(dayEntity: day));
           } catch (e, st) {
             debugPrint('error on updating day $e\n$st');
             emit(DayAddError(error: '', dayEntity: day));

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
@@ -21,17 +22,38 @@ class _DayActivitiesListState extends State<DayActivitiesList> {
   void _activitiesListener(BuildContext context, ActivitiesState state) {
     if (state is ActivitiesLoadedState && state.activities.isNotEmpty) {
       setState(() {
-        activities.clear();
-        final allActivities = state.activities;
-        for (var id in widget.activitiesIds) {
-          final activity = allActivities.where((element) => element.id == id);
-          if (activity.isNotEmpty) {
-            activities.add(activity.first);
-          }
-        }
-        activities.sort((a, b) => a.name.compareTo(b.name));
+        _createList(state.activities);
       });
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant DayActivitiesList oldWidget) {
+    final oldActs = oldWidget.activitiesIds;
+    final newActs = widget.activitiesIds;
+    oldActs.sort();
+    newActs.sort();
+
+    if (listEquals(oldActs, newActs)) {
+      return;
+    }
+
+    _createList(BlocProvider.of<ActivitiesBloc>(context).activities);
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _createList(List<ActivityEntity> all) {
+    setState(() {
+      activities.clear();
+      final allActivities = all;
+      for (var id in widget.activitiesIds) {
+        final activity = allActivities.where((element) => element.id == id);
+        if (activity.isNotEmpty) {
+          activities.add(activity.first);
+        }
+      }
+      activities.sort((a, b) => a.name.compareTo(b.name));
+    });
   }
 
   @override

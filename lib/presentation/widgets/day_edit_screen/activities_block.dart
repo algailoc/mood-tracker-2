@@ -4,6 +4,7 @@ import 'package:mood_tracker_2/core/helpers/confirm_delete_dialog.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
+import 'package:mood_tracker_2/presentation/widgets/common/act_or_food_search_bar.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/activity_item.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/edit_activity_dialog.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_sceen/segment_title.dart';
@@ -17,13 +18,36 @@ class EditActivitiesBlock extends StatefulWidget {
 
 class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
   final activities = <ActivityEntity>[];
+  String _query = '';
+
+  void _sortActivities() {
+    activities.clear();
+    var stateActivities = BlocProvider.of<ActivitiesBloc>(context).activities;
+    if (_query.trim().isNotEmpty) {
+      stateActivities = stateActivities
+          .where(
+            (element) => element.name
+                .toLowerCase()
+                .contains(_query.trim().toLowerCase()),
+          )
+          .toList();
+    }
+    activities.addAll(stateActivities);
+
+    activities.sort((a, b) => a.name.compareTo(b.name));
+  }
+
+  void _onQueryChanged(String text) {
+    setState(() {
+      _query = text;
+      _sortActivities();
+    });
+  }
 
   void _activitiesListener(BuildContext context, ActivitiesState state) {
     if (state is ActivitiesLoadedState && state.activities.isNotEmpty) {
       setState(() {
-        activities.clear();
-        activities.addAll(state.activities);
-        activities.sort((a, b) => a.name.compareTo(b.name));
+        _sortActivities();
       });
     }
   }
@@ -86,10 +110,15 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const DaySegmentTitle('activities'),
+              ActOrFoodSearchBar(onChanged: _onQueryChanged),
               Wrap(
                 children: List<Widget>.generate(
                   activities.length,
                   (index) {
+                    if (index > 19) {
+                      return const SizedBox.shrink();
+                    }
+
                     final activity = activities[index];
 
                     return ActivityItem(

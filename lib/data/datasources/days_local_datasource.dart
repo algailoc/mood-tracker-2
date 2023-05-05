@@ -40,6 +40,7 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
       final json = jsonDecode(e);
       return DayModel.fromJson(json);
     }).toList();
+
     result.addAll(mockDays);
 
     result.sort((a, b) => b.date.compareTo(a.date));
