@@ -8,9 +8,3 @@ abstract class DaysListEvent extends Equatable {
 }
 
 class FetchDaysListEvent extends DaysListEvent {}
-
-class AddDayEvent extends DaysListEvent {
-  final BuildContext context;
-
-  const AddDayEvent(this.context);
-}

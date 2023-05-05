@@ -45,7 +45,7 @@ class _EditFoodsBlockState extends State<EditFoodsBlock> {
   }
 
   void _foodsListener(BuildContext context, FoodsState state) {
-    if (state is FoodsLoadedState && state.foods.isNotEmpty) {
+    if (state is FoodsLoadedState) {
       setState(() {
         _sortFoods();
       });
@@ -102,10 +102,6 @@ class _EditFoodsBlockState extends State<EditFoodsBlock> {
     return BlocConsumer<FoodsBloc, FoodsState>(
         listener: _foodsListener,
         builder: (context, state) {
-          if (state.foods.isEmpty) {
-            return const SizedBox();
-          }
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

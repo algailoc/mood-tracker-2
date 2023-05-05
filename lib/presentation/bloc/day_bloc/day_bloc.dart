@@ -6,6 +6,8 @@ import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 import 'package:mood_tracker_2/domain/usecases/day_usecase.dart';
+import 'package:mood_tracker_2/domain/usecases/days_list_usecase.dart';
+import 'package:mood_tracker_2/get_it.dart';
 
 part 'day_event.dart';
 part 'day_state.dart';
@@ -55,14 +57,14 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emitLoadedState();
       } else if (event is AddActivityEvent) {
         changeChanged();
-        final newActivities = day.activities;
+        final newActivities = [...day.activities];
         newActivities.add(event.activity.id);
         day = day.copyWith(activities: newActivities);
 
         emitLoadedState();
       } else if (event is RemoveActivityEvent) {
         changeChanged();
-        final newActivities = day.activities;
+        final newActivities = [...day.activities];
 
         newActivities.remove(event.activity.id);
         day = day.copyWith(activities: newActivities);
@@ -70,14 +72,14 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emitLoadedState();
       } else if (event is AddFoodEvent) {
         changeChanged();
-        final newFoods = day.foods;
+        final newFoods = [...day.foods];
         newFoods.add(event.food.id);
         day = day.copyWith(foods: newFoods);
 
         emitLoadedState();
       } else if (event is RemoveFoodEvent) {
         changeChanged();
-        final newFoods = day.foods;
+        final newFoods = [...day.foods];
         newFoods.remove(event.food.id);
         day = day.copyWith(foods: newFoods);
 
@@ -85,7 +87,7 @@ class DayBloc extends Bloc<DayEvent, DayState> {
       } else if (event is AddGoodStuffEvent) {
         changeChanged();
 
-        final newGoodStuff = day.goodStuff;
+        final newGoodStuff = [...day.goodStuff];
         if (!newGoodStuff.contains(event.goodStuff)) {
           newGoodStuff.add(event.goodStuff);
         }
@@ -94,7 +96,7 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emitLoadedState();
       } else if (event is RemoveGoodStuffEvent) {
         changeChanged();
-        final newGoodStuff = day.goodStuff;
+        final newGoodStuff = [...day.goodStuff];
         newGoodStuff.remove(event.goodStuff);
 
         day = day.copyWith(goodStuff: newGoodStuff);
@@ -126,6 +128,8 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         if (_isCreateDay ?? false) {
           try {
             await usecase.addDay(day);
+            getIt<DaysListUsecase>().setAddedDay(day);
+
             emit(DayAddSuccess(dayEntity: day));
           } catch (e, st) {
             debugPrint('error on creating day $e\n$st');
@@ -134,6 +138,8 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         } else {
           try {
             await usecase.updateDay(day);
+            getIt<DaysListUsecase>().setAddedDay(day);
+
             emit(DayUpdated(dayEntity: day));
           } catch (e, st) {
             debugPrint('error on updating day $e\n$st');

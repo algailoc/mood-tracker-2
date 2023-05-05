@@ -89,7 +89,7 @@ class DayEditScreen extends StatelessWidget {
               title: Text(
                 params.day == null
                     ? 'newDay'.tr()
-                    : DateFormat('DD.MM.yyyy').format(params.day!.date),
+                    : DateFormat('dd.MM.yyyy').format(params.day!.date),
               ),
               actions: [
                 TextButton(

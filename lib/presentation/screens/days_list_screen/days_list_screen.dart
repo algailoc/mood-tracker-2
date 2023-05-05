@@ -34,19 +34,29 @@ class DaysListScreen extends StatelessWidget {
     // Проверка на случай того, что это уже заполненный сегодняшний день
     // Нужна, потому что метод [showDatePicker] требует, чтобы изначальное число было активным
     if (date == nowDate && todayDays.isNotEmpty) {
-      navigator.pushNamed(
+      await navigator.pushNamed(
         routeDayScreen,
         arguments: DayScreenParams(
           dateTime: todayDays.first.date,
           day: todayDays.first,
         ),
       );
+
+      if (context.mounted) {
+        BlocProvider.of<DaysListBloc>(context).add(FetchDaysListEvent());
+      }
+
+      return;
     }
 
-    navigator.pushNamed(
-      routeDayScreen,
+    await navigator.pushNamed(
+      routeEditDayScreen,
       arguments: DayScreenParams(dateTime: date),
     );
+
+    if (context.mounted) {
+      BlocProvider.of<DaysListBloc>(context).add(FetchDaysListEvent());
+    }
   }
 
   @override

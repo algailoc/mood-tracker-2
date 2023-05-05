@@ -7,6 +7,12 @@ class DaysListUsecase {
 
   DaysListUsecase(this.repository);
 
+  DayEntity? addedDay;
+
+  void setAddedDay(DayEntity? day) {
+    addedDay = day;
+  }
+
   Future<List<DayEntity>> getDaysList() async {
     try {
       return repository.getAllDays();

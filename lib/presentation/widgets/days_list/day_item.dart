@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mood_tracker_2/core/params.dart';
 import 'package:mood_tracker_2/core/router.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
+import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
 
 class DayItem extends StatelessWidget {
   final DayEntity dayEntity;
@@ -10,13 +12,17 @@ class DayItem extends StatelessWidget {
   const DayItem({required this.dayEntity, super.key});
 
   Future<void> onDayPressed(BuildContext context) async {
-    Navigator.of(context).pushNamed(
+    await Navigator.of(context).pushNamed(
       routeDayScreen,
       arguments: DayScreenParams(
         dateTime: dayEntity.date,
         day: dayEntity,
       ),
     );
+
+    if (context.mounted) {
+      BlocProvider.of<DaysListBloc>(context).add(FetchDaysListEvent());
+    }
   }
 
   @override
@@ -31,10 +37,9 @@ class DayItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              DateFormat(dayEntity.date.year == DateTime.now().year
-                      ? 'DD.MM'
-                      : 'DD.MM.yyyy')
-                  .format(dayEntity.date),
+              DateFormat(
+                'dd.MM',
+              ).format(dayEntity.date),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
               ),

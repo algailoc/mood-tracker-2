@@ -45,7 +45,7 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
   }
 
   void _activitiesListener(BuildContext context, ActivitiesState state) {
-    if (state is ActivitiesLoadedState && state.activities.isNotEmpty) {
+    if (state is ActivitiesLoadedState) {
       setState(() {
         _sortActivities();
       });
@@ -102,10 +102,6 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
     return BlocConsumer<ActivitiesBloc, ActivitiesState>(
         listener: _activitiesListener,
         builder: (context, state) {
-          if (state.activities.isEmpty) {
-            return const SizedBox();
-          }
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

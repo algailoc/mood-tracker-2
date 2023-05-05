@@ -111,7 +111,7 @@ class _ScreenBody extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            DateFormat('DD.MM.yyyy').format(day.date),
+            DateFormat('dd.MM.yyyy').format(day.date),
           ),
           leading: IconButton(
             onPressed: Navigator.of(context).pop,

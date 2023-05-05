@@ -17,6 +17,15 @@ class DaysListBloc extends Bloc<DaysListEvent, DaysListState> {
     on<DaysListEvent>((event, emit) async {
       if (event is FetchDaysListEvent) {
         emit(DaysListPending(days: days));
+        if (usecase.addedDay != null) {
+          days.add(usecase.addedDay!);
+          days.sort((a, b) => b.date.compareTo(a.date));
+          usecase.setAddedDay(null);
+
+          emit(DaysListLoaded(days));
+          return;
+        }
+
         try {
           final result = await usecase.getDaysList();
           days.clear();
@@ -35,8 +44,6 @@ class DaysListBloc extends Bloc<DaysListEvent, DaysListState> {
             ));
           }
         }
-      } else if (event is AddDayEvent) {
-        await Navigator.of(event.context).pushNamed('routeName');
       }
     });
   }
