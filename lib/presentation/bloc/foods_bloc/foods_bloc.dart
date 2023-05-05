@@ -88,7 +88,7 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
           listToUpdate.add(newFood);
         }
 
-        await usecase.updateFoodRatings(foods);
+        await usecase.updateFoodRatings(listToUpdate);
 
         emit(FoodsLoadedState(foods));
       }

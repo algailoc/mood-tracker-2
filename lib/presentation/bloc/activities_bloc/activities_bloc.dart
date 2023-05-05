@@ -89,7 +89,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
           listToUpdate.add(newActivity);
         }
 
-        await usecase.updateActivitiesRatings(activities);
+        await usecase.updateActivitiesRatings(listToUpdate);
 
         emit(ActivitiesLoadedState(activities));
       }
