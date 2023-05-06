@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:mood_tracker_2/core/constants.dart';
-import 'package:mood_tracker_2/core/mock/mock_days.dart';
 import 'package:mood_tracker_2/data/models/day_model.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:hive/hive.dart';
@@ -20,6 +19,11 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
 
   @override
   Future<DayEntity> addDay(DayEntity day) async {
+    print('ADDING DAY 2 $day');
+    print(day.activities);
+    print(day.foods);
+    print(day.goodStuff);
+    print(day.badStuff);
     var id = const Uuid().v4();
 
     // Checking that id is unique
@@ -27,7 +31,7 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
       id = const Uuid().v4();
     }
 
-    await box.put(id, DayModel.fromEntity(day).toJson());
+    await box.put(id, DayModel.fromEntity(day.copyWith(id: id)).toJson());
 
     return day.copyWith(id: id);
   }
@@ -41,8 +45,6 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
       return DayModel.fromJson(json);
     }).toList();
 
-    result.addAll(mockDays);
-
     result.sort((a, b) => b.date.compareTo(a.date));
 
     return result;
@@ -50,6 +52,7 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
 
   @override
   Future<DayEntity> getDay(String id) async {
+    print('$id');
     final data = await box.get(id);
 
     return DayModel.fromJson(jsonDecode(data));

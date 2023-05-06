@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 import 'package:mood_tracker_2/core/constants.dart';
-import 'package:mood_tracker_2/core/mock/mock_days.dart';
 import 'package:mood_tracker_2/data/models/activity_model.dart';
 import 'package:mood_tracker_2/data/models/food_model.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
@@ -102,8 +101,8 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
       result.add(ActivityModel.fromJson(jsonDecode(json)));
     }
 
-    // return result;
-    return mockActivities;
+    return result;
+    // return mockActivities;
   }
 
   @override
@@ -114,7 +113,7 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
       result.add(FoodModel.fromJson(jsonDecode(json)));
     }
 
-    // return result;
-    return mockFoods;
+    return result;
+    // return mockFoods;
   }
 }

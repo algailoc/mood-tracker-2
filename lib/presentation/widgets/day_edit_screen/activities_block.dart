@@ -111,10 +111,6 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
                 children: List<Widget>.generate(
                   activities.length,
                   (index) {
-                    if (index > 19) {
-                      return const SizedBox.shrink();
-                    }
-
                     final activity = activities[index];
 
                     return ActivityItem(

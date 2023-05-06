@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:hive/hive.dart';
 import 'package:mood_tracker_2/core/constants.dart';
+import 'package:mood_tracker_2/core/helpers/initial_values_inserter.dart';
 import 'package:mood_tracker_2/core/router.dart';
 import 'package:mood_tracker_2/get_it.dart';
 import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
@@ -28,11 +29,12 @@ void main() async {
   await Hive.openBox(settingsBoxName);
 
   final firstLaunch = await Hive.box(settingsBoxName).get(firstLaunchKey);
+  print('FIRST LAUNCH $firstLaunch');
 
-  if (firstLaunch == null) {
-    // TODO: insert initial values
+  if (firstLaunch == null || firstLaunch) {
+    await insertInitialValues();
 
-    // set to false
+    await Hive.box(settingsBoxName).put(firstLaunchKey, false);
   }
 
   runApp(
