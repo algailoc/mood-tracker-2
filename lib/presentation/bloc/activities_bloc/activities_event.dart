@@ -54,3 +54,9 @@ class DeleteActivityEvent extends ActivitiesEvent {
 
   const DeleteActivityEvent(this.id);
 }
+
+class CreateActivityEvent extends ActivitiesEvent {
+  final String name;
+
+  const CreateActivityEvent(this.name);
+}

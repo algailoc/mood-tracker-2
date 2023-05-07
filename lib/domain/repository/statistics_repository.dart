@@ -5,8 +5,8 @@ abstract class StatisticsRepository {
   Future<List<ActivityEntity>> getAllActivities();
   Future<List<FoodEntity>> getAllFoods();
 
-  Future<void> addActivity(ActivityEntity activity);
-  Future<void> addFood(FoodEntity food);
+  Future<ActivityEntity> addActivity(String activity);
+  Future<FoodEntity> addFood(String food);
 
   Future<void> updateActivitiesRatings(List<ActivityEntity> activities);
   Future<void> updateFoodRatings(List<FoodEntity> foods);

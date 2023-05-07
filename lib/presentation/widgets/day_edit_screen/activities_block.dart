@@ -6,6 +6,7 @@ import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/act_or_food_search_bar.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/activity_item.dart';
+import 'package:mood_tracker_2/presentation/widgets/common/create_activity_or_food_dialog.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/edit_activity_dialog.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_sceen/segment_title.dart';
 
@@ -97,6 +98,17 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
     }
   }
 
+  void _addActivity() async {
+    final name = await openCreateNameDialog();
+    if (name != null) {
+      if (context.mounted) {
+        BlocProvider.of<ActivitiesBloc>(context).add(
+          CreateActivityEvent(name),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ActivitiesBloc, ActivitiesState>(
@@ -106,7 +118,27 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const DaySegmentTitle('activities'),
-              ActOrFoodSearchBar(onChanged: _onQueryChanged),
+              Row(
+                children: [
+                  Expanded(
+                    child: ActOrFoodSearchBar(onChanged: _onQueryChanged),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: GestureDetector(
+                      onTap: _addActivity,
+                      child: const SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Wrap(
                 children: List<Widget>.generate(
                   activities.length,

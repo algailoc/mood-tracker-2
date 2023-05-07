@@ -54,3 +54,9 @@ class DeleteFoodEvent extends FoodsEvent {
 
   const DeleteFoodEvent(this.id);
 }
+
+class CreateFoodEvent extends FoodsEvent {
+  final String name;
+
+  const CreateFoodEvent(this.name);
+}

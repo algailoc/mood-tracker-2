@@ -5,6 +5,7 @@ import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/act_or_food_search_bar.dart';
+import 'package:mood_tracker_2/presentation/widgets/common/create_activity_or_food_dialog.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/edit_activity_dialog.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/food_item.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_sceen/segment_title.dart';
@@ -84,6 +85,17 @@ class _EditFoodsBlockState extends State<EditFoodsBlock> {
     }
   }
 
+  void _addFood() async {
+    final name = await openCreateNameDialog();
+    if (name != null) {
+      if (context.mounted) {
+        BlocProvider.of<FoodsBloc>(context).add(
+          CreateFoodEvent(name),
+        );
+      }
+    }
+  }
+
   void _deleteFood(
     BuildContext context,
     FoodEntity food,
@@ -106,7 +118,27 @@ class _EditFoodsBlockState extends State<EditFoodsBlock> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const DaySegmentTitle('foods'),
-              ActOrFoodSearchBar(onChanged: _onQueryChanged),
+              Row(
+                children: [
+                  Expanded(
+                    child: ActOrFoodSearchBar(onChanged: _onQueryChanged),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: GestureDetector(
+                      onTap: _addFood,
+                      child: const SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Wrap(
                 children: List<Widget>.generate(
                   foods.length,

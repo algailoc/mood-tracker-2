@@ -23,11 +23,11 @@ class StatisticsUsecase {
     return _foods;
   }
 
-  Future<void> addActivity(ActivityEntity activity) async {
+  Future<ActivityEntity> addActivity(String activity) async {
     return repository.addActivity(activity);
   }
 
-  Future<void> addFood(FoodEntity food) async {
+  Future<FoodEntity> addFood(String food) async {
     return repository.addFood(food);
   }
 

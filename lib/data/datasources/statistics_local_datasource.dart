@@ -6,13 +6,15 @@ import 'package:mood_tracker_2/data/models/activity_model.dart';
 import 'package:mood_tracker_2/data/models/food_model.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
+import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
+import 'package:uuid/uuid.dart';
 
 abstract class StatisticsLocalDataSource {
   Future<List<ActivityEntity>> getAllActivities();
   Future<List<FoodEntity>> getAllFoods();
 
-  Future<void> addActivity(ActivityEntity activity);
-  Future<void> addFood(FoodEntity food);
+  Future<ActivityEntity> addActivity(String activity);
+  Future<FoodEntity> addFood(String food);
 
   Future<void> updateActivitiesRating(List<ActivityEntity> activities);
   Future<void> updateFoodRating(List<FoodEntity> foods);
@@ -23,6 +25,14 @@ abstract class StatisticsLocalDataSource {
   Future<void> deleteActivity(String id);
   Future<void> deleteFood(String id);
 }
+
+const _initialRating = {
+  Mood.awful: 0,
+  Mood.bad: 0,
+  Mood.mediocre: 0,
+  Mood.good: 0,
+  Mood.great: 0,
+};
 
 class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   final foodsBox = Hive.box(foodsBoxName);
@@ -51,19 +61,49 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
   }
 
   @override
-  Future<void> addActivity(ActivityEntity activity) {
-    return activitiesBox.put(
-      activity.id,
-      ActivityModel.fromEntity(activity.copyWith(original: false)).toJson(),
+  Future<ActivityEntity> addActivity(String activity) async {
+    var id = const Uuid().v4();
+
+    // Checking that id is unique
+    while ((await activitiesBox.get(id)) != null) {
+      id = const Uuid().v4();
+    }
+
+    final activityEntity = ActivityEntity(
+      id: id,
+      name: activity,
+      rating: _initialRating,
     );
+
+    await activitiesBox.put(
+      id,
+      ActivityModel.fromEntity(activityEntity).toJson(),
+    );
+
+    return activityEntity;
   }
 
   @override
-  Future<void> addFood(FoodEntity food) {
-    return foodsBox.put(
-      food.id,
-      FoodModel.fromEntity(food.copyWith(original: false)).toJson(),
+  Future<FoodEntity> addFood(String food) async {
+    var id = const Uuid().v4();
+
+    // Checking that id is unique
+    while ((await foodsBox.get(id)) != null) {
+      id = const Uuid().v4();
+    }
+
+    final foodEntity = FoodEntity(
+      id: id,
+      name: food,
+      rating: _initialRating,
     );
+
+    await foodsBox.put(
+      id,
+      FoodModel.fromEntity(foodEntity).toJson(),
+    );
+
+    return foodEntity;
   }
 
   @override
@@ -102,7 +142,6 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
     }
 
     return result;
-    // return mockActivities;
   }
 
   @override
@@ -114,6 +153,5 @@ class StatisticsLocalDataSourceImpl implements StatisticsLocalDataSource {
     }
 
     return result;
-    // return mockFoods;
   }
 }

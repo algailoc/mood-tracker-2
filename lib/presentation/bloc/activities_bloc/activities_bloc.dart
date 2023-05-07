@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mood_tracker_2/domain/entities/activity_entity.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
@@ -160,6 +161,25 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         if (index != -1) {
           activities.removeAt(index);
         }
+
+        SmartDialog.dismiss();
+
+        emit(ActivitiesLoadedState(activities));
+      }
+
+      //////////////////////////////////////
+      // if event is create activity ///////
+      //////////////////////////////////////
+
+      else if (event is CreateActivityEvent) {
+        emit(ActivitiesPendingState(activities));
+
+        final activity = await usecase.addActivity(event.name);
+        activities.add(activity);
+
+        // Нужно также добавлять в DayBloc, но пока непонятно как это лучше сделать
+        // _addedActivitiesIds.add(activity.id);
+        // _pickedActivities.add(activity.id);
 
         emit(ActivitiesLoadedState(activities));
       }

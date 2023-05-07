@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:mood_tracker_2/domain/entities/day_entity.dart';
 import 'package:mood_tracker_2/domain/entities/food_entity.dart';
 import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
@@ -160,6 +161,25 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
         if (index != -1) {
           foods.removeAt(index);
         }
+
+        SmartDialog.dismiss();
+
+        emit(FoodsLoadedState(foods));
+      }
+
+      //////////////////////////////////////
+      // if event is create food ///////////
+      //////////////////////////////////////
+
+      else if (event is CreateFoodEvent) {
+        emit(FoodsPendingState(foods));
+
+        final food = await usecase.addFood(event.name);
+        foods.add(food);
+
+        // Нужно также добавлять в DayBloc, но пока непонятно как это лучше сделать
+        // _addedFoodsIds.add(food.id);
+        // _pickedFoods.add(food.id);
 
         emit(FoodsLoadedState(foods));
       }

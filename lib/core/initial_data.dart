@@ -12,6 +12,7 @@ List<ActivityModel> generateInitialActivities() {
         id: count.toString(),
         name: name,
         rating: _rating,
+        original: true,
       ),
     );
     count++;
@@ -51,6 +52,7 @@ List<FoodModel> generateInitialFoods() {
         id: count.toString(),
         name: name,
         rating: _rating,
+        original: true,
       ),
     );
     count++;

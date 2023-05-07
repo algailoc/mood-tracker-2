@@ -9,12 +9,12 @@ class StatisticsRepositoryImpl implements StatisticsRepository {
   StatisticsRepositoryImpl(this.localDataSource);
 
   @override
-  Future<void> addActivity(ActivityEntity activity) {
+  Future<ActivityEntity> addActivity(String activity) {
     return localDataSource.addActivity(activity);
   }
 
   @override
-  Future<void> addFood(FoodEntity food) {
+  Future<FoodEntity> addFood(String food) {
     return localDataSource.addFood(food);
   }
 
