@@ -29,7 +29,6 @@ void main() async {
   await Hive.openBox(settingsBoxName);
 
   final firstLaunch = await Hive.box(settingsBoxName).get(firstLaunchKey);
-  print('FIRST LAUNCH $firstLaunch');
 
   if (firstLaunch == null || firstLaunch) {
     await insertInitialValues();

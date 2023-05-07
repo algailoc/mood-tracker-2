@@ -8,12 +8,15 @@ import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 import 'package:mood_tracker_2/get_it.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
+import 'package:mood_tracker_2/presentation/bloc/day_edit_bloc/day_edit_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
 import 'package:mood_tracker_2/presentation/widgets/common/separator.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/activities_block.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/bad_stuff_block.dart';
+import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/description_block.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/foods_bloc.dart';
 import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/good_stuff_block.dart';
+import 'package:mood_tracker_2/presentation/widgets/day_edit_screen/mood_block.dart';
 
 class DayEditScreen extends StatelessWidget {
   final DayScreenParams params;
@@ -68,6 +71,12 @@ class DayEditScreen extends StatelessWidget {
               ),
             ),
         ),
+        BlocProvider<DayEditBloc>(
+          create: (context) => getIt<DayEditBloc>()
+            ..add(
+              InitDayEditEvent(params.day),
+            ),
+        ),
       ],
       child: BlocConsumer<DayBloc, DayState>(
         listener: _dayBlocListener,
@@ -105,7 +114,19 @@ class DayEditScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: const _ScreenBody(),
+            body: BlocBuilder<DayBloc, DayState>(
+              builder: (context, state) {
+                if (state.dayEntity == null) {
+                  return const Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+
+                return const _ScreenBody();
+              },
+            ),
           ),
         ),
       ),
@@ -127,6 +148,11 @@ class _ScreenBody extends StatelessWidget {
           const SizedBoxSeparator(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: padding),
+            child: const MoodBlock(),
+          ),
+          const SizedBoxSeparator(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
             child: const EditActivitiesBlock(),
           ),
           const SizedBoxSeparator(),
@@ -138,6 +164,11 @@ class _ScreenBody extends StatelessWidget {
           const GoodStuffBlock(),
           const SizedBoxSeparator(),
           const BadStuffBlock(),
+          const SizedBoxSeparator(),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: padding),
+            child: const DescriptionBlock(),
+          ),
           const SizedBoxSeparator(),
         ],
       ),

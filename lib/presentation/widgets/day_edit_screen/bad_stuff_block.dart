@@ -12,10 +12,6 @@ class BadStuffBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DayBloc, DayState>(builder: (context, state) {
-      if (state.dayEntity == null) {
-        return const SizedBox();
-      }
-
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

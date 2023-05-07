@@ -19,11 +19,6 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
 
   @override
   Future<DayEntity> addDay(DayEntity day) async {
-    print('ADDING DAY 2 $day');
-    print(day.activities);
-    print(day.foods);
-    print(day.goodStuff);
-    print(day.badStuff);
     var id = const Uuid().v4();
 
     // Checking that id is unique
@@ -52,7 +47,6 @@ class DaysLocalDataSourceImpl implements DaysLocalDataSource {
 
   @override
   Future<DayEntity> getDay(String id) async {
-    print('$id');
     final data = await box.get(id);
 
     return DayModel.fromJson(jsonDecode(data));

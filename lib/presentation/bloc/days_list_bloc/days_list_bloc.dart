@@ -10,15 +10,24 @@ part 'days_list_state.dart';
 class DaysListBloc extends Bloc<DaysListEvent, DaysListState> {
   final DaysListUsecase usecase;
 
-  final List<DayEntity> days = [];
+  List<DayEntity> days = [];
 
   DaysListBloc(this.usecase) : super(const DaysListInitial()) {
     on<DaysListEvent>((event, emit) async {
       if (event is FetchDaysListEvent) {
         emit(DaysListPending(days: days));
-        if (usecase.addedDay != null) {
-          days.add(usecase.addedDay!);
-          days.sort((a, b) => b.date.compareTo(a.date));
+
+        final addedDay = usecase.addedDay;
+        if (addedDay != null) {
+          final dayIndex =
+              days.indexWhere((element) => element.date == addedDay.date);
+
+          if (dayIndex == -1) {
+            days.add(addedDay);
+            days.sort((a, b) => b.date.compareTo(a.date));
+          } else {
+            days[dayIndex] = addedDay;
+          }
           usecase.setAddedDay(null);
 
           emit(DaysListLoaded(days));

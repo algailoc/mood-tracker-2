@@ -13,6 +13,7 @@ import 'package:mood_tracker_2/domain/usecases/days_list_usecase.dart';
 import 'package:mood_tracker_2/domain/usecases/statistics_usecase.dart';
 import 'package:mood_tracker_2/presentation/bloc/activities_bloc/activities_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/day_bloc/day_bloc.dart';
+import 'package:mood_tracker_2/presentation/bloc/day_edit_bloc/day_edit_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/days_list_bloc/days_list_bloc.dart';
 import 'package:mood_tracker_2/presentation/bloc/foods_bloc/foods_bloc.dart';
 
@@ -47,4 +48,7 @@ Future<void> initGetIt() async {
       () => StatisticsRepositoryImpl(getIt()));
   getIt.registerLazySingleton<StatisticsLocalDataSource>(
       () => StatisticsLocalDataSourceImpl());
+
+  /// Other
+  getIt.registerFactory(() => DayEditBloc());
 }

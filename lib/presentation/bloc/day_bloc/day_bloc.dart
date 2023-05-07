@@ -37,7 +37,6 @@ class DayBloc extends Bloc<DayEvent, DayState> {
 
       if (event is InitDayEvent) {
         if (event.day != null) {
-          print(event.day);
           day = await usecase.getDay(event.day!.id);
         } else {
           day = DayEntity(
@@ -93,7 +92,6 @@ class DayBloc extends Bloc<DayEvent, DayState> {
           newGoodStuff.add(event.goodStuff);
         }
         day = day.copyWith(goodStuff: newGoodStuff);
-        print('DAY GOOD STUFF ${day.goodStuff}');
 
         emitLoadedState();
       } else if (event is RemoveGoodStuffEvent) {
@@ -111,7 +109,6 @@ class DayBloc extends Bloc<DayEvent, DayState> {
           newBadStuff.add(event.badStuff);
         }
         day = day.copyWith(badStuff: newBadStuff);
-        print('DAY BAD STUFF ${day.badStuff}');
 
         emitLoadedState();
       } else if (event is RemoveBadStuffEvent) {
@@ -130,11 +127,6 @@ class DayBloc extends Bloc<DayEvent, DayState> {
         emit(DayAddPending(dayEntity: day));
         if (_isCreateDay ?? false) {
           try {
-            print('ADDING DAY $day');
-            print(day.activities);
-            print(day.foods);
-            print(day.goodStuff);
-            print(day.badStuff);
             final newDay = await usecase.addDay(day);
 
             getIt<DaysListUsecase>().setAddedDay(newDay);
