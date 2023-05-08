@@ -38,7 +38,8 @@ class DayItem extends StatelessWidget {
           children: [
             Text(
               DateFormat(
-                'dd.MM',
+                'dd MMMM',
+                'ru',
               ).format(dayEntity.date),
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onBackground,
