@@ -108,6 +108,10 @@ class DaysListScreen extends StatelessWidget {
 class _CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   const _CustomAppBar();
 
+  Future<void> _goToStatistics(BuildContext context) async {
+    Navigator.pushNamed(context, routeStatistics);
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -120,9 +124,7 @@ class _CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: [
         IconButton(
           tooltip: const Text('statistics').tr().data,
-          onPressed: () {
-            // go to statistics
-          },
+          onPressed: () => _goToStatistics(context),
           icon: Icon(
             Icons.bar_chart_rounded,
             color: Theme.of(context).colorScheme.onPrimary,

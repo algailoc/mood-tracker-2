@@ -68,6 +68,21 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
           await usecase.updateActivitiesRatings(listToUpdate);
 
           listToUpdate.clear();
+        } else {
+          // final listToUpdate = _pickedActivities
+          //     .map(
+          //       (e) => activities
+          //           .firstWhere((element) => element.id == e)
+          //           .changeRating(
+          //             oldMood: _oldMood,
+          //             newMood: _newMood,
+          //           ),
+          //     )
+          //     .toList();
+
+          // await usecase.updateActivitiesRatings(listToUpdate);
+
+          // listToUpdate.clear();
         }
 
         final removedActivities = activities
@@ -181,6 +196,10 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         // _addedActivitiesIds.add(activity.id);
         // _pickedActivities.add(activity.id);
 
+        emit(ActivitiesLoadedState(activities));
+      } else if (event is ChangeMoodForActivitiesEvent) {
+        emit(ActivitiesPendingState(activities));
+        _newMood = event.newMood;
         emit(ActivitiesLoadedState(activities));
       }
     });

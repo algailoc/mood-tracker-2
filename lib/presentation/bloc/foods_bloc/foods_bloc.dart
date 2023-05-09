@@ -182,6 +182,10 @@ class FoodsBloc extends Bloc<FoodsEvent, FoodsState> {
         // _pickedFoods.add(food.id);
 
         emit(FoodsLoadedState(foods));
+      } else if (event is ChangeMoodForFoodsEvent) {
+        emit(FoodsPendingState(foods));
+        _newMood = event.newMood;
+        emit(FoodsLoadedState(foods));
       }
     });
   }

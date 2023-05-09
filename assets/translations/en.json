@@ -45,5 +45,7 @@
   "errorOnSavingDay": "An error occured while saving the day",
 
   "enterName": "Enter name",
-  "textCopied": "Text copied to clipboard"
+  "textCopied": "Text copied to clipboard",
+
+  "stillEmpty": "Empty"
 }

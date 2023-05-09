@@ -4,7 +4,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 Future<String?> openCreateNameDialog() async {
   return SmartDialog.show(
-    builder: (context) => _CreateDialog(),
+    builder: (context) => const _CreateDialog(),
   );
 }
 
