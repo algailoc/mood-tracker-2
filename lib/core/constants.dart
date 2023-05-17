@@ -8,3 +8,5 @@ const settingsBoxName = 'settings_box';
 const lastFilledDayKey = 'last_filled_day_key';
 const firstLaunchKey = 'first_launch_key';
 const firstEditKey = 'first_edit_key';
+
+const calendarCellSize = 50.0;
