@@ -50,6 +50,17 @@ class DayCell extends StatelessWidget {
     }
   }
 
+  bool _isToday() {
+    final today = DateTime.now().copyWith(
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+      microsecond: 0,
+    );
+    return today == date;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -59,6 +70,11 @@ class DayCell extends StatelessWidget {
         height: calendarCellSize,
         decoration: BoxDecoration(
           color: day == null ? Colors.transparent : getMoodColor(day!.mood),
+          border: Border.all(
+            color: _isToday()
+                ? Theme.of(context).colorScheme.onBackground
+                : Colors.transparent,
+          ),
         ),
         child: Center(
           child: Stack(

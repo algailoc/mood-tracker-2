@@ -126,7 +126,7 @@ class _DaysListScreenState extends State<DaysListScreen> {
                   height: 20,
                 ),
                 SizedBox(
-                  height: 350,
+                  height: 370,
                   child: Row(
                     children: [
                       _NavigationButton(
@@ -308,7 +308,9 @@ class _NavigationButton extends StatelessWidget {
             child: Icon(
               forward ? Icons.arrow_right_rounded : Icons.arrow_left_rounded,
               size: 40,
-              color: Theme.of(context).colorScheme.onBackground,
+              color: Theme.of(context).colorScheme.onBackground.withOpacity(
+                    active ? 1 : 0.6,
+                  ),
             ),
           ),
         ),
