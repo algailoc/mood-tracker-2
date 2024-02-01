@@ -174,7 +174,7 @@ class _DaysListScreenState extends State<DaysListScreen> {
   }
 }
 
-class _CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _CustomAppBar();
 
   Future<void> _goToStatistics(BuildContext context) async {
