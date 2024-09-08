@@ -14,15 +14,13 @@ class DaysListInitial extends DaysListState {
 }
 
 class DaysListPending extends DaysListState {
-  const DaysListPending({required List<DayEntity> days}) : super(days: days);
+  const DaysListPending({required super.days});
 }
 
 class DaysListLoadingError extends DaysListState {
   final String error;
 
-  const DaysListLoadingError(
-      {required this.error, required List<DayEntity> days})
-      : super(days: days);
+  const DaysListLoadingError({required this.error, required super.days});
 }
 
 class DaysListLoaded extends DaysListState {

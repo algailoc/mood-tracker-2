@@ -5,24 +5,15 @@ import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 
 class DayModel extends DayEntity {
   const DayModel({
-    required String id,
-    required DateTime date,
-    required Mood mood,
-    List<String> foods = const [],
-    List<String> activities = const [],
-    List<String> goodStuff = const [],
-    List<String> badStuff = const [],
-    String? description,
-  }) : super(
-          id: id,
-          date: date,
-          mood: mood,
-          foods: foods,
-          activities: activities,
-          goodStuff: goodStuff,
-          badStuff: badStuff,
-          description: description,
-        );
+    required super.id,
+    required super.date,
+    required super.mood,
+    super.foods,
+    super.activities,
+    super.goodStuff,
+    super.badStuff,
+    super.description,
+  });
 
   String toJson() {
     final dateWithoutTime = DateTime(date.year, date.month, date.day);

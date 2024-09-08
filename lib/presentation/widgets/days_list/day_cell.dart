@@ -72,7 +72,7 @@ class DayCell extends StatelessWidget {
           color: day == null ? Colors.transparent : getMoodColor(day!.mood),
           border: Border.all(
             color: _isToday()
-                ? Theme.of(context).colorScheme.onBackground
+                ? Theme.of(context).colorScheme.onSurface
                 : Colors.transparent,
           ),
         ),
@@ -86,7 +86,7 @@ class DayCell extends StatelessWidget {
                   date.day.toString(),
                   style: TextStyle(
                     color: day == null
-                        ? Theme.of(context).colorScheme.onBackground
+                        ? Theme.of(context).colorScheme.onSurface
                         : Colors.white,
                     fontWeight: FontWeight.w500,
                   ),

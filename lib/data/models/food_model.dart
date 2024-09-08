@@ -5,16 +5,11 @@ import 'package:mood_tracker_2/domain/entities/mood_entity.dart';
 
 class FoodModel extends FoodEntity {
   const FoodModel({
-    required String id,
-    required String name,
-    required Map<Mood, int> rating,
-    bool original = true,
-  }) : super(
-          id: id,
-          name: name,
-          rating: rating,
-          original: original,
-        );
+    required super.id,
+    required super.name,
+    required super.rating,
+    super.original,
+  });
 
   String toJson() {
     final jsonRating = {};

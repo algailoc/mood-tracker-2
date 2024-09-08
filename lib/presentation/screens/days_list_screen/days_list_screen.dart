@@ -308,7 +308,7 @@ class _NavigationButton extends StatelessWidget {
             child: Icon(
               forward ? Icons.arrow_right_rounded : Icons.arrow_left_rounded,
               size: 40,
-              color: Theme.of(context).colorScheme.onBackground.withOpacity(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(
                     active ? 1 : 0.6,
                   ),
             ),

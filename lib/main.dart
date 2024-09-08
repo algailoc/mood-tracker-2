@@ -75,8 +75,6 @@ class MyApp extends StatelessWidget {
               onSecondary: Colors.blueGrey.shade200,
               error: const Color.fromARGB(255, 141, 22, 14),
               onError: Colors.grey.shade200,
-              background: Colors.white,
-              onBackground: Colors.grey.shade700,
               surface: Colors.white,
               onSurface: Colors.grey.shade700,
             )),

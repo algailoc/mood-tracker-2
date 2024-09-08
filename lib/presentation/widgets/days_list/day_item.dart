@@ -42,13 +42,13 @@ class DayItem extends StatelessWidget {
                 'ru',
               ).format(dayEntity.date),
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             Text(
               dayEntity.date.year.toString(),
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             )
           ],

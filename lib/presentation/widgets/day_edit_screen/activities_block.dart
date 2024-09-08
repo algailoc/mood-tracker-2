@@ -98,7 +98,7 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
     }
   }
 
-  void _addActivity() async {
+  void _addActivity(BuildContext context) async {
     final name = await openCreateNameDialog();
     if (name != null) {
       if (context.mounted) {
@@ -126,7 +126,7 @@ class _EditActivitiesBlockState extends State<EditActivitiesBlock> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5),
                     child: GestureDetector(
-                      onTap: _addActivity,
+                      onTap: () => _addActivity(context),
                       child: const SizedBox(
                         width: 40,
                         height: 40,

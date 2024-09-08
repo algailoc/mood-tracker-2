@@ -85,7 +85,7 @@ class _EditFoodsBlockState extends State<EditFoodsBlock> {
     }
   }
 
-  void _addFood() async {
+  void _addFood(BuildContext context) async {
     final name = await openCreateNameDialog();
     if (name != null) {
       if (context.mounted) {
@@ -126,7 +126,7 @@ class _EditFoodsBlockState extends State<EditFoodsBlock> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 5),
                     child: GestureDetector(
-                      onTap: _addFood,
+                      onTap: () => _addFood(context),
                       child: const SizedBox(
                         width: 40,
                         height: 40,

@@ -115,7 +115,7 @@ class _NewInputState extends State<_NewInput> {
               Icons.add,
               color: controller.text.trim().isNotEmpty
                   ? Colors.green
-                  : Theme.of(context).colorScheme.onBackground,
+                  : Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ),
@@ -145,7 +145,7 @@ class _NewInputState extends State<_NewInput> {
               size: 16,
               color: controller.text.trim().isNotEmpty
                   ? Theme.of(context).colorScheme.error
-                  : Theme.of(context).colorScheme.onBackground,
+                  : Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ),
