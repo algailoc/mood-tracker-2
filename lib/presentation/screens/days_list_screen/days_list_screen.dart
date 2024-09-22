@@ -283,14 +283,26 @@ class _NavigationButton extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.linearToEaseOut,
         );
-        changeIndex(index - 1);
+        late final int newIndex;
+        if (index - 1 > 0) {
+          newIndex = index - 1;
+        } else {
+          newIndex = 12;
+        }
+        changeIndex(newIndex);
       } else {
         controller.scrollTo(
           index: index + 1,
           duration: const Duration(milliseconds: 300),
           curve: Curves.linearToEaseOut,
         );
-        changeIndex(index + 1);
+        late final int newIndex;
+        if (index + 1 < 13) {
+          newIndex = index + 1;
+        } else {
+          newIndex = 0;
+        }
+        changeIndex(newIndex);
       }
     }
   }
